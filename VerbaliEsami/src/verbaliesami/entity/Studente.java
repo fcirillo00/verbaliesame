@@ -1,6 +1,6 @@
 package verbaliesami.entity;
 
-public class Studente implements Cloneable{
+public class Studente {
 
 	private String nome;
 	private String cognome;
