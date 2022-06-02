@@ -8,11 +8,8 @@ import java.sql.ResultSet;
 
 import verbaliesami.entity.Corso;
 
-// TODO: altri read
-
 public class CorsoDAO {
-	public static Corso create(int codice, String denominazione, int cfu) throws SQLException {
-		Corso corso = new Corso(codice, denominazione, cfu);
+	public static void create(int codice, String denominazione, int cfu) throws SQLException {
 		
 		PreparedStatement prep = null;
 		
@@ -35,7 +32,35 @@ public class CorsoDAO {
 			
 		}
 		
-		return corso;
+	}
+	
+	public static void create(Corso corso) throws SQLException {
+		
+		PreparedStatement prep = null;
+		
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			
+			int codice = corso.getCodice();
+			int cfu = corso.getCfu();
+			String denominazione = corso.getDenominazione();
+			
+			prep = conn.prepareStatement("INSERT INTO CORSO (codice, denominazione, cfu) VALUES (?,?,?)");
+			
+			prep.setInt(1, codice);
+			prep.setString(2, denominazione);
+			prep.setInt(3, cfu);
+
+			prep.executeUpdate();
+			
+		} finally {
+			
+			if(prep != null) {
+				prep.close();
+			}
+			
+		}
+		
 	}
 	
 	public static Corso read(int codice) throws SQLException {
@@ -91,5 +116,97 @@ public class CorsoDAO {
 		return lista;
 	}
 	
+	public static ArrayList<Corso> readFromMatricola(String matricolaDocente) throws SQLException {
+		
+		PreparedStatement prep = null;
+		ArrayList<Corso> lista = new ArrayList<Corso>();
 
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			
+			prep = conn.prepareStatement("SELECT c.codice, c.denominazione, c.cfu FROM CORSO as c, TITOLARITA as t WHERE c.codice = t.codicecorso and t.matricolaDocente = ?");
+			prep.setString(1, matricolaDocente);
+			ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) {
+				int codice = rs.getInt("codice");
+				int cfu = rs.getInt("cfu");
+				String denominazione = rs.getString("denominazione");
+				Corso c = new Corso(codice,denominazione,cfu);
+				lista.add(c);
+			}
+			
+		} finally {
+			if(prep != null) {
+				prep.close();
+			}	
+		}	
+		
+		return lista;
+	}
+	
+	public static ArrayList<Corso> readFromNomeCognome(String nome, String cognome) throws SQLException {
+		
+		PreparedStatement prep = null;
+		ArrayList<Corso> lista = new ArrayList<Corso>();
+
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			
+			prep = conn.prepareStatement("SELECT c.codice, c.denominazione, c.cfu FROM CORSO as c, TITOLARITA as t, DOCENTE as d WHERE c.codice = t.codicecorso and t.matricolaDocente = d.matricola and d.nome = ? and d.cognome = ?");
+			prep.setString(1, nome);
+			prep.setString(2, cognome);
+			ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) {
+				int codice = rs.getInt("codice");
+				int cfu = rs.getInt("cfu");
+				String denominazione = rs.getString("denominazione");
+				Corso c = new Corso(codice,denominazione,cfu);
+				lista.add(c);
+			}
+			
+		} finally {
+			if(prep != null) {
+				prep.close();
+			}	
+		}	
+		
+		return lista;
+	}
+
+	public static void update (Corso c) throws SQLException {
+		PreparedStatement prep = null;
+
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			prep = conn.prepareStatement("UPDATE CORSO SET denominazione = ?, cfu = ?, codice = ? WHERE codice = ?");
+			prep.setString(1, c.getDenominazione());
+			prep.setInt(2, c.getCfu());
+			prep.setInt(3, c.getCodice());
+			prep.setInt(4, c.getCodice());
+			
+			prep.executeUpdate();
+		} finally {
+			if(prep != null) {
+				prep.close();
+			}	
+		}
+	}
+	
+	public static void delete (int codice) throws SQLException {
+		PreparedStatement prep = null;
+
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			prep = conn.prepareStatement("DELETE FROM CORSO WHERE codice = ?");
+			prep.setInt(1, codice);
+			
+			prep.executeUpdate();
+		} finally {
+			if(prep != null) {
+				prep.close();
+			}	
+		}
+	}
 }

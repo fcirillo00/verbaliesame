@@ -36,7 +36,7 @@ create table APPELLO (
     note VARCHAR(500),
     sede VARCHAR(50) check (sede in ('AULA', 'LABORATORIO', 'ALTRO')),
     codiceCorso INTEGER references CORSO(codice) ON DELETE cascade ON UPDATE cascade,
-    matricolaDocente INTEGER references DOCENTE(matricola) ON DELETE cascade ON UPDATE cascade,
+    matricolaDocente CHAR(9) references DOCENTE(matricola) ON DELETE cascade ON UPDATE cascade,
     constraint check_scadenza check (scadenza >= data)
 );
 
@@ -49,7 +49,7 @@ create table VALUTAZIONE (
     voto INTEGER not null,
     argomenti_trattati VARCHAR(500),
     appello INTEGER references APPELLO(id) ON DELETE cascade ON UPDATE cascade,
-    matricolaStudente INTEGER references STUDENTE(matricola) ON DELETE cascade ON UPDATE cascade,
+    matricolaStudente CHAR(9) references STUDENTE(matricola) ON DELETE cascade ON UPDATE cascade,
     constraint check_voto check (voto >= 0 and voto <= 30),
     constraint pk_esame primary key (appello, matricolaStudente)
 );
