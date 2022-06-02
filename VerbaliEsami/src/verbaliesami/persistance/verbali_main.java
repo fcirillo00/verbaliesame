@@ -14,6 +14,7 @@ public class verbali_main {
 		System.out.println("Test funzionamento");
 		
 		Connection conn = DBManager.getInstance().getConnection();
+		//Cambio
 		
 		//Studente student = new Studente("Aldo", "Baglio", "N46004951", "Ajeje", "Brazorf", 45620);
 		
