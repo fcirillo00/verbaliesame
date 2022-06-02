@@ -16,9 +16,7 @@ public class verbali_main {
 		Connection conn = DBManager.getInstance().getConnection();
 		//Cambio
 		
-		//Studente student = new Studente("Aldo", "Baglio", "N46004951", "Ajeje", "Brazorf", 45620);
-		
-		//Studente studente = StudenteDAO.create(student);
+		//Studente studente = StudenteDAO.create("Aldo", "Baglio", "N46004951", "Ajeje", "Brazorf", 45620);
 		
 		Statement s = null;
 		try {
