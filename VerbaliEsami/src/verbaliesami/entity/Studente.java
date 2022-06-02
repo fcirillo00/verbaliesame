@@ -9,6 +9,7 @@ public class Studente {
 	private String password;
 	private int pin;
 	
+	
 	public Studente(String nome, String cognome, String matricola,String username, String password, int pin) {
 		
 		this.nome = nome;
@@ -79,6 +80,12 @@ public class Studente {
 		this.matricola = matricola;
 	}
 	
+	public void mostraInfoStudente() {
+		
+		System.out.println("Studente con matricola: " + matricola);
+		System.out.println("\tCOGNOME: " + cognome + "  NOME: " + nome);		
+		
+	}
 	
 	
 }
