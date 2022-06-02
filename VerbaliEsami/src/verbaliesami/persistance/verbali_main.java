@@ -12,6 +12,7 @@ public class verbali_main {
 
 	public static void main (String args[]) throws SQLException {
 		System.out.println("Test funzionamento");
+		
 		Connection conn = DBManager.getInstance().getConnection();
 		
 		//Studente student = new Studente("Aldo", "Baglio", "N46004951", "Ajeje", "Brazorf", 45620);
