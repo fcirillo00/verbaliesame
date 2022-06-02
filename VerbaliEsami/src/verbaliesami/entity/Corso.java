@@ -15,6 +15,17 @@ public class Corso {
 		this.cfu = cfu;
 	}
 
+	
+	public void mostraCorso() {
+		System.out.println("Corso di " + this.denominazione + ":");
+		System.out.format("CFU: %d\n", cfu);
+		System.out.format("Codice: %d\n", codice);
+		// TODO
+		// stampa docente associato
+		System.out.println("");
+	}
+	
+	// getters and setters
 	public int getCodice() {
 		return codice;
 	}

@@ -5,8 +5,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 //import verbaliesami.entity.Studente;
+import verbaliesami.entity.Corso;
 
 public class verbali_main {
 
@@ -30,9 +32,11 @@ public class verbali_main {
 			if (s != null) { s.close(); }
 		}
 		
+		//Corso c = CorsoDAO.create(4, "Sistemi operativi", 18);
 		
-		
-		
-		
+		ArrayList<Corso> lista = CorsoDAO.read("Sistemi operativi");
+		for (int i=0; i<lista.size(); i++) {
+			lista.get(i).mostraCorso();
+		}
 	}
 }
