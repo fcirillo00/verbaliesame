@@ -10,6 +10,7 @@ import java.util.ArrayList;
 //import verbaliesami.entity.Studente;
 import verbaliesami.entity.Corso;
 import verbaliesami.entity.Studente;
+import verbaliesami.entity.Docente;
 
 public class verbali_main {
 
@@ -21,7 +22,9 @@ public class verbali_main {
 		
 		//StudenteDAO.create("Aldo", "Baglio", "N46004951", "Ajeje", "Brazorf", 45620);
 		
-		StudenteDAO.create("Scemo", "Mongolo", "N46005050", "Attila", "Boh", 80809);
+		//StudenteDAO.create("Scemo", "Mongolo", "N46005050", "Attila", "Boh", 80809);
+		
+		DocenteDAO.create("gigi", "buffon", "N12345625", "gigione", "1234");
 		
 		Statement s = null;
 		try {
@@ -29,7 +32,7 @@ public class verbali_main {
 			ResultSet rs = s.executeQuery("SELECT * FROM STUDENTE");
 			while (rs.next()) {
 				String matricola = rs.getString("matricola");
-				System.out.println("SQL: " + matricola);
+			//	System.out.println("SQL: " + matricola);
 			}
 		} finally {
 			if (s != null) { s.close(); }
@@ -44,6 +47,38 @@ public class verbali_main {
 			ResultSet rs = s.executeQuery("SELECT * FROM STUDENTE");
 			while (rs.next()) {
 				String matricola = rs.getString("matricola");
+			//	System.out.println("SQL: " + matricola);
+			}
+		} finally {
+			if (s != null) { s.close(); }
+		}
+		
+		System.out.println("------------------");
+		try {
+			System.out.println("Prima di eseguire la cancellazione");
+
+			s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM DOCENTE");
+			while (rs.next()) {
+				String matricola = rs.getString("matricola");
+				System.out.println("SQL: " + matricola);
+			}
+		} finally {
+			if (s != null) { s.close(); }
+		}
+		
+		Docente d = DocenteDAO.readUnsafe("N12345625");
+		d.mostraInfoDocente();
+		DocenteDAO.delete("N12345625");
+		
+		System.out.println("------------------");
+		try {
+			System.out.println("Dopo aver eseguito la cancellazione");
+
+			s = conn.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM DOCENTE");
+			while (rs.next()) {
+				String matricola = rs.getString("matricola");
 				System.out.println("SQL: " + matricola);
 			}
 		} finally {
@@ -51,14 +86,15 @@ public class verbali_main {
 		}
 		
 		
+		
 		System.out.println("-----------------------");
 		
 		String matricola = "N46004818";
 		
-		System.out.println("Leggo Studente con matricola " + matricola);
-		Studente student = StudenteDAO.readSafe(matricola);
+		//System.out.println("Leggo Studente con matricola " + matricola);
+		Studente student = StudenteDAO.readUnsafe(matricola);
 		student.mostraInfoStudente();
-		System.out.println("--------------");
+		//System.out.println("--------------");
 		
 		//Corso c = CorsoDAO.create(4, "Sistemi operativi", 18);
 		
