@@ -28,7 +28,7 @@ create table TITOLARITA (
     codiceCorso INTEGER references CORSO(codice) ON DELETE cascade ON UPDATE cascade,
     matricolaDocente CHAR(9) references DOCENTE(matricola) ON DELETE cascade ON UPDATE cascade,
     annoAccademico INTEGER not null,
-    constraint pk_acd primary key (codiceCorso, matricolaDocente)
+    constraint pk_acd primary key (codiceCorso, matricolaDocente, annoAccademico)
 );
 
 create table APPELLO (

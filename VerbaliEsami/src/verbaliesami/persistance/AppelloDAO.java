@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import verbaliesami.entity.Corso;
 import verbaliesami.entity.Appello;
-import verbaliesami.entity.Appello.Sede;
 
 public class AppelloDAO {
 
