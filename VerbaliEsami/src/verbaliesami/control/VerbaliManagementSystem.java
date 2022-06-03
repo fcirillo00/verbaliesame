@@ -32,7 +32,7 @@ public class VerbaliManagementSystem {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Errore: Connessione non riuscita o Docente gi� esistente.");
+			System.out.println("Errore: Connessione non riuscita o Docente gia' esistente.");
 		}
 		
 	}
@@ -44,7 +44,7 @@ public class VerbaliManagementSystem {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Errore: Connessione non riuscita o Docente gi� esistente.");
+			System.out.println("Errore: Connessione non riuscita o Docente gia' esistente.");
 		}
 		
 	}
@@ -99,7 +99,7 @@ public class VerbaliManagementSystem {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Errore: Connessione non riuscita o Corso gi� esistente.");
+			System.out.println("Errore: Connessione non riuscita o Corso gia' esistente.");
 		}
 		
 	}
@@ -110,7 +110,7 @@ public class VerbaliManagementSystem {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Errore: Connessione non riuscita o Corso gi� esistente.");
+			System.out.println("Errore: Connessione non riuscita o Corso gia' esistente.");
 		}
 	}
 	
@@ -194,7 +194,7 @@ public class VerbaliManagementSystem {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Associzione non possibile.");
-			System.out.println("Controllare se il corso � stato gi� associato a tale docente");
+			System.out.println("Controllare se il corso e' stato gia' associato a tale docente");
 		}
 	}
 	
@@ -216,8 +216,8 @@ public class VerbaliManagementSystem {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Appello non inseribile.");
-			System.out.println("Controllare se l'appello � gi� stato inserito.");
-			System.out.println("Se non fosse gi� stato inserito, controllare i dati.");
+			System.out.println("Controllare se l'appello e' gia' stato inserito.");
+			System.out.println("Se non fosse gia' stato inserito, controllare i dati.");
 		}
 		
 	}
