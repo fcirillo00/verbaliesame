@@ -104,17 +104,18 @@ public class Docente {
 	
 	public ArrayList<Corso> getCorsiAssociati() {
 		
-		ArrayList<Corso> lista = null;
+		ArrayList<Corso> corsi = new ArrayList<Corso>();
 		try {
-			lista = TitolaritaDAO.readCorsiDocenteEver(this.matricola);
+			ArrayList<Titolarita> lista = TitolaritaDAO.readFromDocente(this.matricola);
+			for (int i=0; i<lista.size(); i++) {
+				corsi.add(lista.get(i).getCorso());
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Nessun corso associato.");
 		}
-			
-		return lista;
-		
+		return corsi;
 	}
 
 

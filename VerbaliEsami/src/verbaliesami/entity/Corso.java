@@ -1,11 +1,12 @@
 package verbaliesami.entity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import verbaliesami.persistance.TitolaritaDAO;
+
 public class Corso {
-	// codice
-	// denominazione
-	// cfu
+
 	
 	private int codice;
 	private String denominazione;
@@ -19,8 +20,9 @@ public class Corso {
 		this.denominazione = denominazione;
 		this.cfu = cfu;
 		
-		appelli = new ArrayList<Appello>();
-		titolarita_docenti = new ArrayList<Titolarita>();
+		this.appelli = new ArrayList<Appello>();
+		this.titolarita_docenti = new ArrayList<Titolarita>();
+		
 	}
 	
 	public Corso(Corso c) {
@@ -35,11 +37,30 @@ public class Corso {
 	
 	public void mostraCorso() {
 		System.out.println("Corso di " + this.denominazione + ":");
-		System.out.format("CFU: %d\n", cfu);
-		System.out.format("Codice: %d\n", codice);
-		// TODO
-		// stampa docente associato
+		System.out.format("CFU: %d\n", this.cfu);
+		System.out.format("Codice: %d\n", this.codice); 
+		for (int i=0; i < this.titolarita_docenti.size(); i++) {
+			Docente d = this.titolarita_docenti.get(i).getDocente();
+			System.out.format("Docente: %s %s", d.getNome(), d.getCognome());
+		}
+
 		System.out.println("");
+	}
+	
+	public ArrayList<Docente> getDocentiAssociati() {
+		
+		ArrayList<Docente> docenti = new ArrayList<Docente>();
+		try {
+			ArrayList<Titolarita> lista = TitolaritaDAO.readFromCorso(this.codice);
+			for (int i=0; i<lista.size(); i++) {
+				docenti.add(lista.get(i).getDocente());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessun corso associato.");
+		}
+		return docenti;
 	}
 	
 	// getters and setters
