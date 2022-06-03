@@ -12,11 +12,12 @@ import verbaliesami.persistance.TitolaritaDAO;
 public class VerbaliManagementSystem {
 
 	private static VerbaliManagementSystem instance = null;
-	
-	protected VerbaliManagementSystem() {
+
+	protected VerbaliManagementSystem(){
+		super();
 	}
 
-	public static VerbaliManagementSystem getInstance() throws SQLException {
+	public static VerbaliManagementSystem getInstance(){
 		if (instance == null) {
 			instance = new VerbaliManagementSystem(); 
 		}
@@ -235,8 +236,8 @@ public class VerbaliManagementSystem {
 	}
 	
 	public Studente cerca_prenotato(Appello a) {
+
 		return null;
-		
 		
 	}
 	
