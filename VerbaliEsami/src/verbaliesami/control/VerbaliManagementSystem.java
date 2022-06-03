@@ -7,6 +7,7 @@ import verbaliesami.entity.*;
 import verbaliesami.persistance.AppelloDAO;
 import verbaliesami.persistance.CorsoDAO;
 import verbaliesami.persistance.DocenteDAO;
+import verbaliesami.persistance.PrenotazioneDAO;
 import verbaliesami.persistance.TitolaritaDAO;
 
 public class VerbaliManagementSystem {
@@ -248,8 +249,12 @@ public class VerbaliManagementSystem {
 	}
 	
 	public void prenota_appello(Appello a, Studente s) {
-		
-		
+		a.aggiungiStudentePrenotato(s);
+		try {
+			PrenotazioneDAO.create(s.getMatricola(), AppelloDAO.readId(a));
+		} catch (SQLException e) {
+			System.out.println("Errore, appello non trovato nel DB per la prenotazione.");
+		}
 	}
 	
 	public void crea_verbale(Appello a) {
