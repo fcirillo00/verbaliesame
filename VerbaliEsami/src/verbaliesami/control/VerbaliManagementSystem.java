@@ -229,7 +229,7 @@ public class VerbaliManagementSystem {
 		return lista_corsi;
 	}
 	
-	public Appello cerca_appello(int codiceCorso) {
+	public ArrayList<Appello> cerca_appello(int codiceCorso) {
 		return null;
 				
 	}
