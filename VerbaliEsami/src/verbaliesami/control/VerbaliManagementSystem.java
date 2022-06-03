@@ -30,7 +30,7 @@ public class VerbaliManagementSystem {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Errore: Connessione non riuscita o Docente già esistente.");
+			System.out.println("Errore: Connessione non riuscita o Docente giï¿½ esistente.");
 		}
 		
 	}
@@ -42,7 +42,7 @@ public class VerbaliManagementSystem {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Errore: Connessione non riuscita o Docente già esistente.");
+			System.out.println("Errore: Connessione non riuscita o Docente giï¿½ esistente.");
 		}
 		
 	}
@@ -97,7 +97,7 @@ public class VerbaliManagementSystem {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Errore: Connessione non riuscita o Corso già esistente.");
+			System.out.println("Errore: Connessione non riuscita o Corso giï¿½ esistente.");
 		}
 		
 	}
@@ -108,7 +108,7 @@ public class VerbaliManagementSystem {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Errore: Connessione non riuscita o Corso già esistente.");
+			System.out.println("Errore: Connessione non riuscita o Corso giï¿½ esistente.");
 		}
 	}
 	
@@ -192,7 +192,7 @@ public class VerbaliManagementSystem {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Associzione non possibile.");
-			System.out.println("Controllare se il corso è stato già associato a tale docente");
+			System.out.println("Controllare se il corso ï¿½ stato giï¿½ associato a tale docente");
 		}
 	}
 	
@@ -214,8 +214,8 @@ public class VerbaliManagementSystem {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Appello non inseribile.");
-			System.out.println("Controllare se l'appello è già stato inserito.");
-			System.out.println("Se non fosse già stato inserito, controllare i dati.");
+			System.out.println("Controllare se l'appello ï¿½ giï¿½ stato inserito.");
+			System.out.println("Se non fosse giï¿½ stato inserito, controllare i dati.");
 		}
 		
 	}
@@ -230,7 +230,13 @@ public class VerbaliManagementSystem {
 	}
 	
 	public ArrayList<Appello> cerca_appello(int codiceCorso) {
-		return null;
+		ArrayList<Appello> a = null;
+		try {
+			a = new ArrayList<Appello>(AppelloDAO.read(codiceCorso));
+		} catch(SQLException e) {
+			System.out.println("Errore: connessione non riuscita o appello non trovato");
+		}
+		return a;
 				
 	}
 	
