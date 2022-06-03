@@ -189,6 +189,11 @@ public class BSegreteriaStudenti {
 			
 			ArrayList<Docente> d = new ArrayList<Docente>(control.ricerca_docente(nome_doc, cognome_doc));
 			
+			if(d.isEmpty()) {
+				System.out.println("Nessun docente trovato");
+				return;
+			}
+			
 			Iterator<Docente> it = d.iterator();
 			int indice_docente = 1;
 			
@@ -251,6 +256,11 @@ public class BSegreteriaStudenti {
 			} 
 			
 			doc = new Docente(control.ricerca_docente(matricola_doc));
+			
+			if(doc.equals(null)) {
+				System.out.println("Nessun docente trovato");
+				return;
+			}
 		}
 		
 		
