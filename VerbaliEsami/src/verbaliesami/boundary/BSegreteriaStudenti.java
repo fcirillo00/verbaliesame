@@ -106,6 +106,15 @@ public class BSegreteriaStudenti {
 		
 		control.agg_docente(matricola_doc, nome_doc, cognome_doc, username_doc, password_doc);
 		
+		try {
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("ERRORS HAPPENS");
+			return;
+		}
+		
 	}
 	
 	public void modifica_docente() {	
@@ -386,6 +395,14 @@ public class BSegreteriaStudenti {
 		
 		System.out.println("Docente modificato");
 		
+		try {
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("ERRORS HAPPENS");
+			return;
+		}		
 	}
 	
 	public void agg_corso() {
