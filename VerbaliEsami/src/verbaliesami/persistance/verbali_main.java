@@ -10,6 +10,7 @@ import java.util.ArrayList;
 //import verbaliesami.entity.Studente;
 import verbaliesami.entity.Corso;
 import verbaliesami.entity.Studente;
+import verbaliesami.entity.Titolarita;
 import verbaliesami.entity.Docente;
 
 public class verbali_main {
@@ -99,9 +100,15 @@ public class verbali_main {
 		//Corso c = CorsoDAO.create(4, "Sistemi operativi", 18);
 		
 		ArrayList<Corso> lista = CorsoDAO.read("Sistemi operativi");
+
 		for (int i=0; i<lista.size(); i++) {
+			ArrayList<Titolarita> titolarita = TitolaritaDAO.readFromCorso(lista.get(i).getCodice());
+			for (int j=0; j<titolarita.size(); j++) {
+				lista.get(i).aggiungiDocenteTitolare(titolarita.get(j));
+			}
 			lista.get(i).mostraCorso();
 		}
-		
+
+
 	}
 }
