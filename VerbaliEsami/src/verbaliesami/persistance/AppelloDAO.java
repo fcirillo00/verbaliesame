@@ -40,7 +40,6 @@ public class AppelloDAO {
 			
 		}
 		
-		
 	}
 	
 	public static ArrayList<Appello> read(int codice_corso) throws SQLException{
@@ -146,8 +145,7 @@ public class AppelloDAO {
 				prep.close();
 			}	
 		}		
-		
-		
+
 		
 		return app;
 	}
