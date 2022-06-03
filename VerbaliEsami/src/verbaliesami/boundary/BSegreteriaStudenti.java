@@ -13,7 +13,7 @@ import verbaliesami.entity.Docente;
 public class BSegreteriaStudenti {
 
 	VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
-	
+
 	public void agg_docente() {
 		
 		String pattern = "[a-zA-Z]*";
@@ -117,6 +117,7 @@ public class BSegreteriaStudenti {
 		
 		String buffer = "";
 		String pattern = "[a-zA-Z]*";
+		String pattern2 = "[' ']";
 		
 		do {
 			
@@ -146,9 +147,9 @@ public class BSegreteriaStudenti {
 				do {
 					nome_doc = br.readLine();
 					if(!nome_doc.matches(pattern)) {
-						System.out.println("Hai inserito numeri. Riprovare:");
+						System.out.println("Hai inserito caratteri non validi. Riprovare:");
 					}
-				}while(!nome_doc.matches(pattern));
+				}while((!nome_doc.matches(pattern)) && (!nome_doc.matches(pattern2)));
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -163,13 +164,14 @@ public class BSegreteriaStudenti {
 				do {
 					cognome_doc = br.readLine();
 					if(!cognome_doc.matches(pattern)) {
-						System.out.println("Hai inserito numeri. Riprovare:");
+						System.out.println("Hai inserito caratteri non validi. Riprovare:");
 					}
 				}while(!cognome_doc.matches(pattern));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				System.out.println("Cognome non valido");
+				return;
 			} 
 			
 			ArrayList<Docente> d = new ArrayList<Docente>(control.ricerca_docente(nome_doc, cognome_doc));
@@ -200,6 +202,7 @@ public class BSegreteriaStudenti {
 					// TODO Auto-generated catch block
 					//e.printStackTrace();
 					System.out.println("Inserimento non valido");
+					return;
 				}
 				
 				indice = Integer.valueOf(buffer);
@@ -231,6 +234,7 @@ public class BSegreteriaStudenti {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				System.out.println("Matricola non valida");
+				return;
 			} 
 			
 			doc = new Docente(control.ricerca_docente(matricola_doc));
@@ -252,6 +256,7 @@ public class BSegreteriaStudenti {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				System.out.println("Inserimento non valido");
+				return;
 			}
 			
 			if((buffer.compareTo("Y") != 0)&&(buffer.compareTo("N") != 0)) {
@@ -269,7 +274,7 @@ public class BSegreteriaStudenti {
 				do {
 					nome_doc = br.readLine();
 					if(!nome_doc.matches(pattern)) {
-						System.out.println("Hai inserito numeri. Riprovare:");
+						System.out.println("Hai inserito caratteri non validi. Riprovare:");
 					}
 				}while(!nome_doc.matches(pattern));
 				
@@ -295,6 +300,7 @@ public class BSegreteriaStudenti {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				System.out.println("Inserimento non valido");
+				return;
 			}
 			
 			if((buffer.compareTo("Y") != 0)&&(buffer.compareTo("N") != 0)) {
@@ -312,7 +318,7 @@ public class BSegreteriaStudenti {
 				do {
 					cognome_doc = br.readLine();
 					if(!cognome_doc.matches(pattern)) {
-						System.out.println("Hai inserito numeri. Riprovare:");
+						System.out.println("Hai inserito caratteri non validi. Riprovare:");
 					}
 				}while(!cognome_doc.matches(pattern));
 				
@@ -338,6 +344,7 @@ public class BSegreteriaStudenti {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				System.out.println("Inserimento non valido");
+				return;
 			}
 			
 			if((buffer.compareTo("Y") != 0)&&(buffer.compareTo("N") != 0)) {
