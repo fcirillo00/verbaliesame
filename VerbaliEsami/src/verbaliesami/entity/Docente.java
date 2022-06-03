@@ -3,6 +3,7 @@ package verbaliesami.entity;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import verbaliesami.persistance.DocenteDAO;
 import verbaliesami.persistance.TitolaritaDAO;
 
 public class Docente {

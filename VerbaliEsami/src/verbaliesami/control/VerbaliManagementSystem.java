@@ -4,6 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import verbaliesami.entity.*;
+import verbaliesami.persistance.AppelloDAO;
+import verbaliesami.persistance.CorsoDAO;
+import verbaliesami.persistance.DocenteDAO;
+import verbaliesami.persistance.TitolaritaDAO;
 
 public class VerbaliManagementSystem {
 
@@ -19,80 +23,210 @@ public class VerbaliManagementSystem {
 		return instance;
 	}
 	
-	public void agg_docente(String matricola, String nome_docente, String cognome_docente) {
+	public void agg_docente(String matricola, String nome_docente, String cognome_docente, String username, String password) {
 		
-		
-		
+		try {
+			DocenteDAO.create(nome_docente, cognome_docente, matricola, username, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Docente già esistente.");
+		}
 		
 	}
 	
 	public void agg_docente(Docente docente) {
 		
+		try {
+			DocenteDAO.create(docente);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Docente già esistente.");
+		}
 		
 	}
 	
-	public Docente ricerca_docente(String nome, String cognome) {
-		return null;
+	public ArrayList<Docente> ricerca_docente(String nome, String cognome) {
 		
+		ArrayList<Docente> lista_docenti = null;
+		
+		try {
+			lista_docenti = new ArrayList<Docente>(DocenteDAO.readSafe(nome, cognome));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Nessun docente trovato");
+		}
+		
+		return lista_docenti;
 	}
 	
 	public Docente ricerca_docente(String matricola) {
-		return null;
+		
+		Docente doc = null;
+		
+		try {
+			doc = new Docente(DocenteDAO.readSafe(matricola));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Nessun docente trovato");
+		}
+		
+		return doc;
 		
 	}
 	
-	public void canc_studente(String matricola) {
+	public void canc_docente(String matricola) {
 		
+		try {
+			DocenteDAO.delete(matricola);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Nessun docente trovato");
+		}
 		
 	}
 	
 	public void agg_corso(int codice, String denominazione_corso, int CFU) {
 		
-	}
-	
-	public void agg_corso(Corso corso) {
+		try {
+			CorsoDAO.create(codice, denominazione_corso, CFU);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Corso già esistente.");
+		}
 		
 	}
 	
+	public void agg_corso(Corso corso) {
+		try {
+			CorsoDAO.create(corso);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Corso già esistente.");
+		}
+	}
+	
 	public Corso ricerca_corso(int codice) {
-		return null;
+		
+		Corso c = null;
+		
+		try {
+			c = new Corso(CorsoDAO.read(codice));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Corso non trovato.");
+		}
+		
+		return c;
 		
 	}
 	
 	public ArrayList<Corso> ricerca_corso_denominazione(String denominazione_corso){
-		return null;
+		ArrayList<Corso> c = null;
 		
+		try {
+			c = new ArrayList<Corso>(CorsoDAO.read(denominazione_corso));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Nessun Corso trovato.");
+		}
+		
+		return c;
 	}
 	
 	public ArrayList<Corso> ricerca_corso_docente(String matricola_docente){
-		return null;
+		ArrayList<Corso> c = null;
+		
+		try {
+			c = new ArrayList<Corso>(CorsoDAO.readFromMatricola(matricola_docente));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Nessun Corso trovato.");
+		}
+		
+		return c;
 		
 	}
 	
 	public ArrayList<Corso> ricerca_corso_docente(String nome_docente, String cognome_docente){
-		return null;
+		ArrayList<Corso> c = null;
+		
+		try {
+			c = new ArrayList<Corso>(CorsoDAO.readFromNomeCognome(nome_docente, cognome_docente));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Nessun Corso trovato.");
+		}
+		
+		return c;
 		
 	}
 	
 	public void canc_corso(int codice) {
 		
+		try {
+			CorsoDAO.delete(codice);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Nessun Corso trovato.");
+		}
 		
 	}
 	
 	public void assoc_doc_corso(String matricola_docente, int codice_corso, int annoAccademico) {
 		
+		try {
+			TitolaritaDAO.create(codice_corso, matricola_docente, annoAccademico);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Associzione non possibile.");
+			System.out.println("Controllare se il corso è stato già associato a tale docente");
+		}
+	}
+	
+	public void crea_appello(Appello a, int id_appello) {
+		
+		String sede = "";
+		
+		if(a.getSede() == Appello.Sede.Aula) {
+			sede= "AULA";
+		}else if(a.getSede() == Appello.Sede.Laboratorio){
+			sede= "LABORATORIO";
+		}else {
+			sede = "ALTRO";
+		}
+		
+		try {
+			AppelloDAO.create(id_appello, a.getData(), a.getScadenza(), a.getNote(), sede, a.getCorso().getCodice(), a.getDocente().getMatricola());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Errore: Connessione non riuscita o Appello non inseribile.");
+			System.out.println("Controllare se l'appello è già stato inserito.");
+			System.out.println("Se non fosse già stato inserito, controllare i dati.");
+		}
 		
 	}
 	
-	public void crea_appello(Appello a) {
+	public ArrayList<Corso> getCorsiAssociati(String matricola_docente) {
 		
+		Docente d = ricerca_docente(matricola_docente);
 		
-	}
-	
-	public void getCorsiAssociati(String matricola_docente) {
+		ArrayList<Corso> lista_corsi = d.getCorsiAssociati();
 		
-		
-		
+		return lista_corsi;
 	}
 	
 	public Appello cerca_appello(int codiceCorso) {

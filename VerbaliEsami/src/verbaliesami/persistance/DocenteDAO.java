@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import verbaliesami.entity.Appello;
 import verbaliesami.entity.Docente;
 
 public class DocenteDAO {
@@ -132,6 +134,67 @@ public class DocenteDAO {
 				}
 			}		
 				
+	}
+		
+	public static ArrayList<Docente> readSafe(String nome, String cognome) throws SQLException{
+		
+		PreparedStatement p = null;
+		ArrayList<Docente> lista = new ArrayList<Docente>();
+		
+		try {
+		Connection conn = DBManager.getInstance().getConnection();
+		p = conn.prepareStatement("SELECT matricola, nome, cognome, username FROM DOCENTE WHERE nome=? AND cognome=?");
+		p.setString(1, nome);
+		p.setString(2, cognome);
+		ResultSet rs = p.executeQuery();
+		Docente d = null;
+		
+		if (rs.next()) {
+			String m = rs.getString("matricola");
+			String n = rs.getString("nome");
+			String c = rs.getString("cognome");
+			String u = rs.getString("username");
+			d = new Docente (n, c, m, u, "****");
+			lista.add(d);
+		}
+		
+		} finally {
+			if (p != null) {
+				p.close();
+			}
+		}
+		return lista;
+	}
+	
+	public static ArrayList<Docente> readUnsafe(String nome, String cognome) throws SQLException{
+		
+		PreparedStatement p = null;
+		ArrayList<Docente> lista = new ArrayList<Docente>();
+		
+		try {
+		Connection conn = DBManager.getInstance().getConnection();
+		p = conn.prepareStatement("SELECT matricola, nome, cognome, username, password FROM DOCENTE WHERE nome=? AND cognome=?");
+		p.setString(1, nome);
+		p.setString(2, cognome);
+		ResultSet rs = p.executeQuery();
+		Docente d = null;
+		
+		if (rs.next()) {
+			String m = rs.getString("matricola");
+			String n = rs.getString("nome");
+			String c = rs.getString("cognome");
+			String u = rs.getString("username");
+			String pw = rs.getString("password");
+			d = new Docente (n, c, m, u, pw);
+			lista.add(d);
+		}
+		
+		} finally {
+			if (p != null) {
+				p.close();
+			}
+		}
+		return lista;
 	}
 	
 	
