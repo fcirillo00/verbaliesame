@@ -18,7 +18,6 @@ public class BSegreteriaStudenti {
 		String username_doc = "";
 		String password_doc = "";
 		
-
 		System.out.println("INSERIMENTO DOCENTE");
 		System.out.println("INSERIRE NOME DOCENTE:");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
