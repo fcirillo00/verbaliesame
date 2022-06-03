@@ -14,6 +14,12 @@ public class Corso {
 		this.denominazione = denominazione;
 		this.cfu = cfu;
 	}
+	
+	public Corso(Corso c) {
+		this.codice = c.getCodice();
+		this.denominazione = c.getDenominazione();
+		this.cfu = c.getCfu();
+	}
 
 	
 	public void mostraCorso() {

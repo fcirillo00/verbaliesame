@@ -154,8 +154,31 @@ public class Appello {
 		}		
 	}
 	
+	public void setCorso(Corso corso) {
+		this.corso = new Corso(corso);
+	}
+	
 	public Corso getCorso(){
 		return this.corso;
+	}
+	
+	public void setDocente(String matricola_docente) {
+		try {
+			this.docente = DocenteDAO.readSafe(matricola_docente);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Docente non trovato");
+			return;
+		}
+	}
+	
+	public void setDocente(Docente docente) {
+		this.docente = new Docente(docente);
+	}
+	
+	public Docente getDocente() {
+		return docente;
 	}
 	
 	public void aggiungiStudentePrenotato(Studente s) {
