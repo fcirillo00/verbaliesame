@@ -80,4 +80,76 @@ public class AppelloDAO {
 		return lista;
 	}
 	
+	public static int readId(Appello a) throws SQLException {
+		
+		int id = 0;
+		PreparedStatement prep = null;
+		
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			
+			prep = conn.prepareStatement("SELECT id FROM APPELLO WHERE data = ? AND codiceCorso = ? AND matricolaDocente = ?");
+			
+			//Seleziono appello con stessa data, docente e corso, quindi è univoca
+			prep.setDate(1, new java.sql.Date(a.getData().getTimeInMillis()));
+			prep.setInt(2, a.getCorso().getCodice());
+			prep.setString(3, a.getDocente().getMatricola());
+			
+			ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) {
+				id = rs.getInt("id");
+			}
+			
+		} finally {
+			if(prep != null) {
+				prep.close();
+			}	
+		}		
+		
+		return id;
+			
+	}
+	
+	public static Appello readAppello(int id_appello) throws SQLException{
+		
+		Appello app = null;
+		
+		PreparedStatement prep = null;
+		
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			
+			prep = conn.prepareStatement("SELECT * FROM APPELLO WHERE id=?");
+			
+			prep.setInt(1,id_appello);
+			
+			ResultSet rs = prep.executeQuery();
+			
+			if (rs.next()) {
+				Date data = rs.getDate("data");
+				Calendar data_c = new GregorianCalendar();
+				data_c.setTime(data);
+				Date scadenza = rs.getDate("scadenza");
+				Calendar scadenza_c = new GregorianCalendar();
+				scadenza_c.setTime(scadenza);
+				String note = rs.getString("note");
+				String sede = rs.getString("sede");
+				int codice = rs.getInt("codiceCorso");
+				String matricola = rs.getString("matricolaDocente");
+				app = new Appello(data_c,scadenza_c,note,sede,codice,matricola);
+				
+			}
+			
+		} finally {
+			if(prep != null) {
+				prep.close();
+			}	
+		}		
+		
+		
+		
+		return app;
+	}
+	
 }

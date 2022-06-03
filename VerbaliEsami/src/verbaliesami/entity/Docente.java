@@ -1,5 +1,10 @@
 package verbaliesami.entity;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import verbaliesami.persistance.TitolaritaDAO;
+
 public class Docente {
 
 	private String nome;
@@ -8,7 +13,8 @@ public class Docente {
 	private String username;
 	private String password;
 	
-	public void getCorsiAssociati() {} //TODO
+	private ArrayList<Titolarita> corsi_associati;
+	private ArrayList<Appello> appelli;
 	
 	
 	public Docente (String nome, String cognome, String matricola, String username, String password) {
@@ -18,6 +24,9 @@ public class Docente {
 		this.matricola = matricola;
 		this.username = username;
 		this.password = password;
+		
+		corsi_associati = new ArrayList<Titolarita>();
+		appelli = new ArrayList<Appello>();
 		
 	}
 	
@@ -31,6 +40,8 @@ public class Docente {
 		this.username = d.username;
 		this.password = d.password;
 	
+		corsi_associati = new ArrayList<Titolarita>(d.getTitolarita());
+		appelli = new ArrayList<Appello>(d.getAppelli());
 	}
 	
 	
@@ -81,6 +92,43 @@ public class Docente {
 	
 	public void mostraInfoDocente() {
 		System.out.println("Docente, Nome:" + nome + " Cognome:" + cognome + " Matricola:" + matricola);
+	}
+
+
+	public ArrayList<Titolarita> getTitolarita() {
+		
+		return this.corsi_associati;
+		
+	}
+	
+	public ArrayList<Corso> getCorsiAssociati() {
+		
+		ArrayList<Corso> lista = null;
+		try {
+			lista = TitolaritaDAO.readCorsiDocenteEver(this.matricola);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessun corso associato.");
+		}
+			
+		return lista;
+		
+	}
+
+
+	public void aggiungiTitolaritaCorso(Corso corso, int anno_accademico) {
+		this.corsi_associati.add(new Titolarita(this.matricola, corso.getCodice(), anno_accademico));
+	}
+
+
+	public ArrayList<Appello> getAppelli() {
+		return appelli;
+	}
+
+
+	public void aggiungiAppello(Appello appello) {
+		this.appelli.add(appello);
 	}
 	
 	

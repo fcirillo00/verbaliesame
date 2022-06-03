@@ -1,5 +1,7 @@
 package verbaliesami.entity;
 
+import java.util.ArrayList;
+
 public class Corso {
 	// codice
 	// denominazione
@@ -8,17 +10,26 @@ public class Corso {
 	private int codice;
 	private String denominazione;
 	private int cfu;
+	private ArrayList<Appello> appelli;
+	private ArrayList<Titolarita> titolarita_docenti;
+	
 	
 	public Corso (int codice, String denominazione, int cfu) {
 		this.codice = codice;
 		this.denominazione = denominazione;
 		this.cfu = cfu;
+		
+		appelli = new ArrayList<Appello>();
+		titolarita_docenti = new ArrayList<Titolarita>();
 	}
 	
 	public Corso(Corso c) {
 		this.codice = c.getCodice();
 		this.denominazione = c.getDenominazione();
 		this.cfu = c.getCfu();
+		
+		appelli = new ArrayList<Appello>(c.getAppelli());
+		titolarita_docenti = new ArrayList<Titolarita>(c.getTitolarita_docenti());
 	}
 
 	
@@ -54,6 +65,22 @@ public class Corso {
 
 	public void setCfu(int cfu) {
 		this.cfu = cfu;
+	}
+
+	public ArrayList<Appello> getAppelli() {
+		return appelli;
+	}
+
+	public void aggiungiAppello(Appello appello) {
+		this.appelli.add(appello);
+	}
+
+	public ArrayList<Titolarita> getTitolarita_docenti() {
+		return titolarita_docenti;
+	}
+
+	public void aggiungiDocenteTitolare(Titolarita titolarita) {
+		this.titolarita_docenti.add(titolarita);
 	}
 	
 	

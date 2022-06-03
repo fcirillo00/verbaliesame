@@ -1,5 +1,7 @@
 package verbaliesami.entity;
 
+import java.util.ArrayList;
+
 public class Studente {
 
 	private String nome;
@@ -9,6 +11,9 @@ public class Studente {
 	private String password;
 	private int pin;
 	
+	private ArrayList<Appello> appelliPrenotati;
+	private ArrayList<Valutazione> valutazioniConseguite;
+	
 	
 	public Studente(String nome, String cognome, String matricola,String username, String password, int pin) {
 		
@@ -17,7 +22,11 @@ public class Studente {
 		this.matricola = matricola;
 		this.username = username;
 		this.password = password;
-		this.pin = pin;		
+		this.pin = pin;
+		
+		appelliPrenotati = new ArrayList<Appello>();
+		valutazioniConseguite = new ArrayList<Valutazione>();
+		
 	}
 	
 	public Studente(Studente s) {
@@ -27,7 +36,10 @@ public class Studente {
 		this.matricola = s.matricola;
 		this.username = s.username;
 		this.password = s.password;
-		this.pin = s.pin;		
+		this.pin = s.pin;	
+		
+		appelliPrenotati = new ArrayList<Appello>(s.getAppelliPrenotati());
+		valutazioniConseguite = new ArrayList<Valutazione>(s.getValutazioniConseguite());
 	}
 	
 	
@@ -85,6 +97,22 @@ public class Studente {
 		System.out.println("Studente con matricola: " + matricola);
 		System.out.println("\tCOGNOME: " + cognome + "  NOME: " + nome);		
 		
+	}
+
+	public ArrayList<Appello> getAppelliPrenotati() {
+		return appelliPrenotati;
+	}
+
+	public void aggiungiAppelloPrenotato(Appello appelloPrenotato) {
+		this.appelliPrenotati.add(appelloPrenotato);
+	}
+
+	public ArrayList<Valutazione> getValutazioniConseguite() {
+		return valutazioniConseguite;
+	}
+
+	public void aggiungiValutazioneConseguite(Valutazione valutazioneConseguita) {
+		this.valutazioniConseguite.add(valutazioneConseguita);
 	}
 	
 	

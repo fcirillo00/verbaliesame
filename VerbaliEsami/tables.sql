@@ -50,10 +50,10 @@ create table VERBALE (
 create table VALUTAZIONE (
     voto INTEGER not null,
     argomenti_trattati VARCHAR(500),
-    appello INTEGER references APPELLO(id) ON DELETE cascade ON UPDATE cascade,
+    verbale INTEGER references VERBALE(id) ON DELETE cascade ON UPDATE cascade,
     matricolaStudente CHAR(9) references STUDENTE(matricola) ON DELETE cascade ON UPDATE cascade,
-    constraint check_voto check (voto >= 0 and voto <= 30),
-    constraint pk_esame primary key (appello, matricolaStudente)
+    constraint check_voto check (voto >= 0 and voto <= 31),
+    constraint pk_esame primary key (verbale, matricolaStudente)
 );
 
 create table PRENOTAZIONE (

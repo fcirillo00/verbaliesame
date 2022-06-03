@@ -21,7 +21,7 @@ public class Appello {
 	private Sede sede;
 	private Corso corso;
 	private Docente docente;
-	//TODO private Verbale verbalizzazione;
+	private Verbale verbalizzazione;
 	private List<Studente> prenotazione;
 	
 	//TODO Nel control, quando si inserisce il mese, fare -1
@@ -59,8 +59,25 @@ public class Appello {
 			return;
 		}
 		
+		//Il verbale non esiste all'inizio, ma deve essere creato appositamente
+		verbalizzazione = null;
 		this.prenotazione = new ArrayList<>();
 		
+	}
+	
+	public Appello(Appello a) {
+		
+		this.data = new GregorianCalendar();
+		this.data = a.data;
+		this.scadenza = new GregorianCalendar();
+		this.scadenza = a.scadenza;
+		this.note = a.note;
+		this.sede = a.sede;
+		this.corso = new Corso(a.corso);
+		this.docente = new Docente(a.docente);
+		this.verbalizzazione = new Verbale(a.getVerbale());
+		this.prenotazione = new ArrayList<>();
+				
 	}
 
 	public void setData(Calendar data) {
@@ -122,7 +139,7 @@ public class Appello {
 			System.out.println("\tSede: Altro");
 		}
 		System.out.println("NOTE:");
-		System.out.println(note);
+		System.out.println(this.getNote());
 
 	}
 
@@ -199,6 +216,14 @@ public class Appello {
 		}
 		
 		
+	}
+	
+	public void creaVerbale() {
+		verbalizzazione = new Verbale(this);
+	}
+	
+	public Verbale getVerbale() {
+		return verbalizzazione;
 	}
 	
 
