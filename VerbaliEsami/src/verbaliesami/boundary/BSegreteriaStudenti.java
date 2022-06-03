@@ -59,6 +59,7 @@ public class BSegreteriaStudenti {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Cognome non valido");
+			return;
 		} 
 		
 		System.out.println("INSERIRE MATRICOLA DOCENTE:"); 
@@ -89,6 +90,7 @@ public class BSegreteriaStudenti {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Username non valido");
+			return;
 		} 
 		
 		System.out.println("INSERIRE PASSWORD DOCENTE:");
@@ -99,6 +101,7 @@ public class BSegreteriaStudenti {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Password non valida");
+			return;
 		} 
 		
 		control.agg_docente(matricola_doc, nome_doc, cognome_doc, username_doc, password_doc);
@@ -127,6 +130,7 @@ public class BSegreteriaStudenti {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
 				System.out.println("Inserimento non valido");
+				return;
 			}
 			
 			if((buffer.compareTo("0") != 0)&&(buffer.compareTo("1") != 0)) {
