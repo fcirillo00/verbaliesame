@@ -236,7 +236,7 @@ public class VerbaliManagementSystem {
 		} catch(SQLException e) {
 			System.out.println("Errore: connessione non riuscita o appello non trovato");
 		}
-		return a;
+		return a; 
 				
 	}
 	
