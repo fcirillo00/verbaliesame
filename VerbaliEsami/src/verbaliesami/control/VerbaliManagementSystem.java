@@ -294,10 +294,8 @@ public class VerbaliManagementSystem {
 		
 	}
 	
-	public ArrayList<Studente> prelievo_dati_studenti() {
-		return null;
-		
-		
+	public void prelievo_dati_studenti() {
+	
 	}
 	
 
