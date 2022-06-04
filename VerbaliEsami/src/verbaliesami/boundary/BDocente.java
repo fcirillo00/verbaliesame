@@ -11,9 +11,12 @@ import verbaliesami.entity.Appello;
 
 public class BDocente {
 
-	VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 	
-	public void crea_appello() {
+	
+	public static void crea_appello() {
+		
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+		
 		String id_appello = "";
 		String data_giorno;
 		String data_mese;
