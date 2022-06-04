@@ -249,6 +249,9 @@ public class BStudente {
 			
 
 		} while (!completed);
+		
+		System.out.println("Operazione terminata");
+		
 	} catch (IOException e) {
 			System.out.println("Input invalido");
 			return;
