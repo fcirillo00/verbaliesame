@@ -3,13 +3,11 @@ package verbaliesami.boundary;
 import verbaliesami.control.VerbaliManagementSystem;
 import verbaliesami.entity.Appello;
 import verbaliesami.entity.Corso;
-import verbaliesami.persistance.AppelloDAO;
-import verbaliesami.persistance.CorsoDAO;
+import verbaliesami.entity.Studente;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 class functions {
@@ -30,6 +28,7 @@ class functions {
 			
 			return false;
 	}
+
 }
 
 public class BStudente {
@@ -37,14 +36,24 @@ public class BStudente {
 	
 	public static void prenota_appello() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
 		boolean is_corso_trovato = false;
 		String pattern = "[0-9]*";
 		
+		Studente studente_loggato = null;
+		
 		Corso corso_scelto = null;
 		boolean completed = false;
-
-		do {
 		try {
+			do {
+				System.out.println("Inserisci username: ");
+				System.out.flush();
+				String username = br.readLine();
+				System.out.println("Inserisci password: ");
+				String password = br.readLine();
+				studente_loggato = vms.login(username, password);
+			} while (studente_loggato == null);
+		do {
 			do {
 				System.out.println("RICERCA CORSO");
 				System.out.println("Come vuoi cercare il corso?");
@@ -68,32 +77,26 @@ public class BStudente {
 				case 1:
 					System.out.print("Inserisci il nome: ");
 					System.out.flush();
-					try {
-					corsi = CorsoDAO.read(br.readLine());
-					} catch (SQLException e) {
-						System.out.println("Errore nel DB.");
-					}
+					corsi = vms.ricerca_corso_denominazione(br.readLine());
 					break;
+					
 				case 2:
-					try {
-						do {
-							System.out.print("Inserisci il codice del corso: ");
-							System.out.flush();
-							input = br.readLine();
-							if (!input.matches(pattern)) {
-								System.out.println("Inserire un numero.");
-							}
-						} while (!input.matches(pattern));
-						
-						int codice = Integer.valueOf(input);
-						Corso c = CorsoDAO.read(codice);
-						if (c != null) {
-							corsi.add(c);
+					do {
+						System.out.print("Inserisci il codice del corso: ");
+						System.out.flush();
+						input = br.readLine();
+						if (!input.matches(pattern)) {
+							System.out.println("Inserire un numero.");
 						}
-					} catch (SQLException e) {
-						System.out.println("Errore nel DB");
+					} while (!input.matches(pattern));
+					
+					int codice = Integer.valueOf(input);
+					Corso c = vms.ricerca_corso(codice);
+					if (c != null) {
+						corsi.add(c);
 					}
 					break;
+					
 				case 3:
 					System.out.print("Inserisci la matricola del docente: ");
 					System.out.flush();
@@ -105,12 +108,9 @@ public class BStudente {
 						}
 					} while (matricola.length() != 9);
 					
-					try {
-						corsi = CorsoDAO.readFromMatricola(matricola);
-					} catch (SQLException e) {
-						System.out.println("Errore nel DB");
-					}
+					corsi = vms.ricerca_corso_docente(matricola);
 					break;
+					
 				case 4:
 					System.out.println("Inserisci nome del docente: ");
 					System.out.flush();
@@ -118,12 +118,10 @@ public class BStudente {
 					System.out.println("Inserisci cognome del docente: ");
 					System.out.flush();
 					String cognome = br.readLine();
-					try {					
-						corsi = CorsoDAO.readFromNomeCognome(nome, cognome);
-					} catch (SQLException e) {
-						System.out.println("Errore nel DB");
-					}
+				
+					corsi = vms.ricerca_corso_docente(nome, cognome);
 					break;
+					
 				default:
 					System.out.println("Indice errato\n");
 					break;
@@ -174,14 +172,10 @@ public class BStudente {
 			if (corso_scelto != null) {
 				System.out.println("Hai scelto "+corso_scelto.getDenominazione());
 				int codiceCorso = corso_scelto.getCodice();
+				
 				ArrayList<Appello> appelli = new ArrayList<Appello>();
-				
-				try {
-					appelli = AppelloDAO.read(codiceCorso);
-				} catch (SQLException e) {
-					System.out.println("Errore nel DB.");
-				}
-				
+				appelli = vms.cerca_appello(codiceCorso);
+
 				if (!appelli.isEmpty()) {
 					Appello appello_scelto = null;
 					for (int i=0; i<appelli.size(); i++) {
@@ -202,24 +196,29 @@ public class BStudente {
 							} else if (! (Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= appelli.size() )) {
 								System.out.println("Inserisci un numero compreso tra quelli mostrati.");
 							}
+
+						
+							int scelta = Integer.valueOf(input);
+							appello_scelto = appelli.get(scelta-1);
+							
+							System.out.println("Hai scelto: ");
+							appello_scelto.mostraInfoAppello();
+							System.out.println("Vuoi confermare? (Y/N): ");
+							if (functions.yes()) {
+								vms.prenota_appello(appello_scelto, studente_loggato);
+								completed = true;
+								System.out.println("Ti sei prenotato con successo.");
+								break;
+							} else {
+								System.out.println("Prenotazione annullata. Vuoi scegliere un altro appello? (Y/N): ");
+								if (!functions.yes()) {
+									break;
+								}
+							}
 						} while (!input.matches(pattern) && Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= appelli.size());
 						
-						int scelta = Integer.valueOf(input);
-						appello_scelto = appelli.get(scelta-1);
-						
-						System.out.println("Hai scelto: ");
-						appello_scelto.mostraInfoAppello();
-						System.out.println("Vuoi confermare? (Y/N): ");
-						if (functions.yes()) {
-							// TODO
-							//prenota_appello(appello_scelto, )
-							completed = true;
-						} else {
-							
-						}
-						
 					} else {
-						System.out.println("Ricerca annullata. Vuoi riprovare?");
+						System.out.println("Ricerca annullata. Vuoi riprovare? (Y/N): ");
 						if (!functions.yes()) {
 							return;
 						}
@@ -237,10 +236,11 @@ public class BStudente {
 				return;
 			}
 			
-		} catch (IOException e) {
-				System.out.println("Input invalido");
-				return;
-		}
+
 		} while (!completed);
+	} catch (IOException e) {
+			System.out.println("Input invalido");
+			return;
+	}
 	}
 }

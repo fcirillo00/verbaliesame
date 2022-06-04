@@ -8,6 +8,7 @@ import verbaliesami.persistance.AppelloDAO;
 import verbaliesami.persistance.CorsoDAO;
 import verbaliesami.persistance.DocenteDAO;
 import verbaliesami.persistance.PrenotazioneDAO;
+import verbaliesami.persistance.StudenteDAO;
 import verbaliesami.persistance.TitolaritaDAO;
 
 public class VerbaliManagementSystem {
@@ -119,7 +120,7 @@ public class VerbaliManagementSystem {
 		Corso c = null;
 		
 		try {
-			c = new Corso(CorsoDAO.read(codice));
+			c = CorsoDAO.read(codice);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -257,6 +258,16 @@ public class VerbaliManagementSystem {
 		}
 	}
 	
+	public Studente login (String username, String password) {
+		Studente s = null;
+		try {
+			s = StudenteDAO.login(username, password);
+		} catch (SQLException e) {
+			System.out.println("Errore nel DB.");
+		}
+		return s;
+	}
+	
 	public void crea_verbale(Appello a) {
 		
 	}
@@ -289,7 +300,7 @@ public class VerbaliManagementSystem {
 		
 	}
 	
-	
+
 	
 
 }

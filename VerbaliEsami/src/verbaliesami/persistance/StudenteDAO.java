@@ -118,20 +118,53 @@ public class StudenteDAO {
 		}
 	}
 	
-public static Studente readSafe(String matricola) throws SQLException{
+	public static Studente readSafe(String matricola) throws SQLException{
+			
+			PreparedStatement prep = null;
+			
+			try {
+				Connection conn = DBManager.getInstance().getConnection();
+				
+				prep = conn.prepareStatement("SELECT matricola,cognome,nome FROM STUDENTE WHERE matricola=?");
+				
+				prep.setString(1, matricola);
+				
+				ResultSet rs = prep.executeQuery();
+				
+				Studente s = null;
+				
+				if(rs.next()) {
+					String matr = rs.getString("matricola");
+					String cognome = rs.getString("cognome");
+					String nome = rs.getString("nome");
+					
+					s = new Studente(nome, cognome, matr, "****", "****", -1);
+				}
+	
+				return s;
+			}finally {
+				if(prep != null) {
+					prep.close();
+				}
+			}
+		}
+	
+	public static Studente login(String username, String password) throws SQLException{
 		
 		PreparedStatement prep = null;
-		
+		Studente s = null;
+
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
 			
-			prep = conn.prepareStatement("SELECT matricola,cognome,nome FROM STUDENTE WHERE matricola=?");
+			prep = conn.prepareStatement("SELECT * FROM STUDENTE WHERE username = ? and password = ?");
 			
-			prep.setString(1, matricola);
+			prep.setString(1, username);
+			prep.setString(2, password);
 			
 			ResultSet rs = prep.executeQuery();
 			
-			Studente s = null;
+
 			
 			if(rs.next()) {
 				String matr = rs.getString("matricola");
@@ -141,12 +174,13 @@ public static Studente readSafe(String matricola) throws SQLException{
 				s = new Studente(nome, cognome, matr, "****", "****", -1);
 			}
 
-			return s;
+
 		}finally {
 			if(prep != null) {
 				prep.close();
 			}
 		}
+		return s;
 	}
 	
 }
