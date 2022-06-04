@@ -207,10 +207,18 @@ public class BStudente {
 							appello_scelto.mostraInfoAppello();
 							System.out.println("Vuoi confermare? (Y/N): ");
 							if (functions.yes()) {
-								vms.prenota_appello(appello_scelto, studente_loggato);
-								completed = true;
-								System.out.println("Ti sei prenotato con successo.");
-								break;
+								boolean success = vms.prenota_appello(appello_scelto, studente_loggato);
+								if(success) {
+									
+									completed = true;
+									System.out.println("Ti sei prenotato con successo.");
+									break;
+									
+								} else {
+									System.out.println("Prenotazione non eseguita.");
+									return;
+								}
+								
 							} else {
 								System.out.println("Prenotazione annullata. Vuoi scegliere un altro appello? (Y/N): ");
 								if (!functions.yes()) {
