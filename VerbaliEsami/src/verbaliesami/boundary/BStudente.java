@@ -132,6 +132,7 @@ public class BStudente {
 					// mostra corsi
 					for (int i=0; i<corsi.size(); i++) {
 						System.out.format("Corso (%d):\n", i+1);
+						
 						corsi.get(i).mostraCorso();
 					}
 					
