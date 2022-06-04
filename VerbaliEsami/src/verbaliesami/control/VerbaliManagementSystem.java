@@ -26,26 +26,30 @@ public class VerbaliManagementSystem {
 		return instance;
 	}
 	
-	public void agg_docente(String matricola, String nome_docente, String cognome_docente, String username, String password) {
+	public boolean agg_docente(String matricola, String nome_docente, String cognome_docente, String username, String password) {
 		
 		try {
 			DocenteDAO.create(nome_docente, cognome_docente, matricola, username, password);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Docente gia' esistente.");
+			return false;
 		}
 		
 	}
 	
-	public void agg_docente(Docente docente) {
+	public boolean agg_docente(Docente docente) {
 		
 		try {
 			DocenteDAO.create(docente);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Docente gia' esistente.");
+			return false;
 		}
 		
 	}
@@ -81,37 +85,43 @@ public class VerbaliManagementSystem {
 		
 	}
 	
-	public void canc_docente(String matricola) {
+	public boolean canc_docente(String matricola) {
 		
 		try {
 			DocenteDAO.delete(matricola);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Nessun docente trovato");
+			return false;
 		}
 		
 	}
 	
-	public void agg_corso(int codice, String denominazione_corso, int CFU) {
+	public boolean agg_corso(int codice, String denominazione_corso, int CFU) {
 		
 		try {
 			CorsoDAO.create(codice, denominazione_corso, CFU);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Corso gia' esistente.");
+			return false;
 		}
 		
 	}
 	
-	public void agg_corso(Corso corso) {
+	public boolean agg_corso(Corso corso) {
 		try {
 			CorsoDAO.create(corso);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Corso gia' esistente.");
+			return false;
 		}
 	}
 	
@@ -175,31 +185,35 @@ public class VerbaliManagementSystem {
 		
 	}
 	
-	public void canc_corso(int codice) {
+	public boolean canc_corso(int codice) {
 		
 		try {
 			CorsoDAO.delete(codice);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Nessun Corso trovato.");
+			return false;
 		}
 		
 	}
 	
-	public void assoc_doc_corso(String matricola_docente, int codice_corso, int annoAccademico) {
+	public boolean assoc_doc_corso(String matricola_docente, int codice_corso, int annoAccademico) {
 		
 		try {
 			TitolaritaDAO.create(codice_corso, matricola_docente, annoAccademico);
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Associzione non possibile.");
 			System.out.println("Controllare se il corso e' stato gia' associato a tale docente");
+			return false;
 		}
 	}
 	
-	public void crea_appello(Appello a, int id_appello) {
+	public boolean crea_appello(Appello a, int id_appello) {
 		
 		String sede = "";
 		
@@ -213,12 +227,14 @@ public class VerbaliManagementSystem {
 		
 		try {
 			AppelloDAO.create(id_appello, a.getData(), a.getScadenza(), a.getNote(), sede, a.getCorso().getCodice(), a.getDocente().getMatricola());
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Appello non inseribile.");
 			System.out.println("Controllare se l'appello e' gia' stato inserito.");
 			System.out.println("Se non fosse gia' stato inserito, controllare i dati.");
+			return false;
 		}
 		
 	}
@@ -249,12 +265,14 @@ public class VerbaliManagementSystem {
 		
 	}
 	
-	public void prenota_appello(Appello a, Studente s) {
+	public boolean prenota_appello(Appello a, Studente s) {
 		a.aggiungiStudentePrenotato(s);
 		try {
 			PrenotazioneDAO.create(s.getMatricola(), AppelloDAO.readId(a));
+			return true;
 		} catch (SQLException e) {
-			System.out.println("Errore, appello non trovato nel DB per la prenotazione.");
+			System.out.println("Errore, appello non trovato nel DB per la prenotazione o appello già prenotato.");
+			return false;
 		}
 	}
 	
@@ -268,34 +286,34 @@ public class VerbaliManagementSystem {
 		return s;
 	}
 	
-	public void crea_verbale(Appello a) {
-		
+	public boolean crea_verbale(Appello a) {
+		return false;
 	}
 	
-	public void agg_studente(Appello a, Studente s) {
-		
+	public boolean agg_studente(Appello a, Studente s) {
+		return false;
 	}
 	
-	public void canc_studente(Appello a, Studente s) {
+	public boolean canc_studente(Appello a, Studente s) {
 		
-		
+		return false;
 	}
 	
-	public void regista_esame(Appello a, Studente s, int voto, boolean lode) {
+	public boolean regista_esame(Appello a, Studente s, int voto, boolean lode) {
 		
-		
+		return false;
 	}
 	
-	public void chiudi_verbale() {
-		
+	public boolean chiudi_verbale() {
+		return false;
 	}
 	
-	public void stampa_report(int codice_corso, String matricola_docente, int annoAccademico) {
-		
+	public boolean stampa_report(int codice_corso, String matricola_docente, int annoAccademico) {
+		return false;
 	}
 	
-	public void prelievo_dati_studenti() {
-	
+	public boolean prelievo_dati_studenti() {
+		return false;
 	}
 	
 

@@ -106,7 +106,14 @@ public class BSegreteriaStudenti {
 			return;
 		} 
 		
-		control.agg_docente(matricola_doc, nome_doc, cognome_doc, username_doc, password_doc);
+		boolean success = control.agg_docente(matricola_doc, nome_doc, cognome_doc, username_doc, password_doc);
+		
+		if(success) {
+			System.out.println("Docente aggiunto correttamente.");
+		}else {
+			System.out.println("Operazione fallita");
+		}
+		
 		
 		try {
 			br.close();
@@ -270,7 +277,13 @@ public class BSegreteriaStudenti {
 		
 		Docente new_docente = new Docente(doc);
 		
-		control.canc_docente(doc.getMatricola());
+		boolean success = control.canc_docente(doc.getMatricola());
+		
+		if(!success) {
+			System.out.println("Operazione fallita");
+			return;
+		}
+		
 		
 		System.out.println("Modificare il nome?");
 		System.out.println("Inserire Y come si, N come no");
@@ -405,9 +418,13 @@ public class BSegreteriaStudenti {
 			new_docente.setMatricola(matricola_doc);
 		}
 		
-		control.agg_docente(new_docente);
+		success = control.agg_docente(new_docente);
 		
-		System.out.println("Docente modificato");
+		if(success) {
+			System.out.println("Docente modificato correttamente.");
+		}else {
+			System.out.println("Operazione fallita");
+		}
 		
 		try {
 			br.close();
