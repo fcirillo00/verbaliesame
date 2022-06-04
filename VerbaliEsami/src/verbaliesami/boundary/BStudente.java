@@ -209,7 +209,6 @@ public class BStudente {
 								vms.prenota_appello(appello_scelto, studente_loggato);
 								completed = true;
 								System.out.println("Ti sei prenotato con successo.");
-								
 								break;
 							} else {
 								System.out.println("Prenotazione annullata. Vuoi scegliere un altro appello? (Y/N): ");
