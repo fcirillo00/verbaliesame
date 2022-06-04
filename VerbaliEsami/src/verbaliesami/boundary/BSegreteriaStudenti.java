@@ -12,9 +12,11 @@ import verbaliesami.entity.Docente;
 
 public class BSegreteriaStudenti {
 
-	VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+	
 
-	public void agg_docente() {
+	public static void agg_docente() {
+		
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
 		String pattern = "[a-zA-Z]*";
 		
@@ -117,7 +119,9 @@ public class BSegreteriaStudenti {
 		
 	}
 	
-	public void modifica_docente() {	
+	public static void modifica_docente() {	
+		
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
 		Docente doc;
 		
@@ -415,15 +419,15 @@ public class BSegreteriaStudenti {
 		}		
 	}
 	
-	public void agg_corso() {
+	public static void agg_corso() {
 		
 	}
 	
-	public void modifica_corso() {
+	public static void modifica_corso() {
 		
 	}
 	
-	public void associa_docente_corso() {
+	public static void associa_docente_corso() {
 	
 	}
 
