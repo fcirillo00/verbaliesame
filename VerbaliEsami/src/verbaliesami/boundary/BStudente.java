@@ -146,7 +146,7 @@ public class BStudente {
 							} else if (! (Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= corsi.size() )) {
 								System.out.println("Inserisci un numero compreso tra quelli mostrati.");
 							}
-						} while (!input.matches(pattern) && (Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= corsi.size()));
+						} while (!input.matches(pattern) || !(Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= corsi.size()));
 						
 						int scelta = Integer.valueOf(input);
 						corso_scelto = corsi.get(scelta-1);
@@ -179,7 +179,7 @@ public class BStudente {
 				if (!appelli.isEmpty()) {
 					Appello appello_scelto = null;
 					for (int i=0; i<appelli.size(); i++) {
-						System.out.format("Appello (%d): \n");
+						System.out.format("Appello (%d): \n", i+1);
 						appelli.get(i).mostraInfoAppello();
 					}
 					
@@ -188,15 +188,16 @@ public class BStudente {
 					if (functions.yes()) {
 						String input;
 						do {
-							System.out.println("Inserisci il numero dell'appello: ");
-							System.out.flush();
-							input = br.readLine();
-							if (!input.matches(pattern)) {
-								System.out.println("Inserisci un numero.");
-							} else if (! (Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= appelli.size() )) {
-								System.out.println("Inserisci un numero compreso tra quelli mostrati.");
-							}
-
+							do {
+								System.out.println("Inserisci il numero dell'appello: ");
+								System.out.flush();
+								input = br.readLine();
+								if (!input.matches(pattern)) {
+									System.out.println("Inserisci un numero.");
+								} else if (! (Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= appelli.size() )) {
+									System.out.println("Inserisci un numero compreso tra quelli mostrati.");
+								}
+							} while (! (Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= appelli.size() ));
 						
 							int scelta = Integer.valueOf(input);
 							appello_scelto = appelli.get(scelta-1);
@@ -215,7 +216,8 @@ public class BStudente {
 									break;
 								}
 							}
-						} while (!input.matches(pattern) && Integer.valueOf(input) >= 1 && Integer.valueOf(input) <= appelli.size());
+						} while (true);
+						
 						
 					} else {
 						System.out.println("Ricerca annullata. Vuoi riprovare? (Y/N): ");
