@@ -210,7 +210,7 @@ public class BSegreteriaStudenti {
 			
 			while(it.hasNext()) {
 				Docente docente = new Docente(it.next());
-				System.out.println("[" + indice_docente + "] " + docente.getCognome() + " " + docente.getNome() + " " + docente.getMatricola());
+				docente.mostraInfoDocente();
 				ArrayList<Corso> c = new ArrayList<Corso>(docente.getCorsiAssociati());
 				Iterator<Corso> it_corso = c.iterator();
 				System.out.println("Corsi associati:");
