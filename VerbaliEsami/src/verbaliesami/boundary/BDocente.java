@@ -3,11 +3,15 @@ package verbaliesami.boundary;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+
 
 import verbaliesami.control.VerbaliManagementSystem;
 import verbaliesami.entity.Appello;
+import verbaliesami.entity.Corso;
 
 public class BDocente {
 
@@ -34,6 +38,8 @@ public class BDocente {
 		int anno_scadenza = 0;
 		int mese_scadenza = 0;
 		int giorno_scadenza = 0;
+		
+		ArrayList<Corso> corsi_associati = new ArrayList<>();
 		
 		
 		
@@ -228,16 +234,6 @@ public class BDocente {
 		}
 		
 		
-		System.out.println("Inserire codice corso: ");
-		try {
-			String temp = buff.readLine();
-			codice_corso = Integer.valueOf(temp);
-		} catch(IOException e) {
-			System.out.println("Errore inserimento codice");
-		} catch (NumberFormatException n) {
-			System.out.println("Errore di inserimento codice");
-		}
-		
 		
 		try {
 			do {
@@ -252,6 +248,29 @@ public class BDocente {
 		}
 		
 		
+		
+		System.out.println();
+		System.out.println("I corsi associati a questo docente sono: ");
+		corsi_associati = control.getCorsiAssociati(matricola_docente);	//Arraylist di corsi
+		Iterator<Corso> it = corsi_associati.iterator();
+		while (it.hasNext()) {
+			Corso c = it.next();
+			c.mostraCorso();
+		}
+		
+		System.out.println();
+		System.out.println("Inserire il codice del corso per cui si vuole creare l'appello: ");
+		
+		
+		try {
+			String temp = buff.readLine();
+			codice_corso = Integer.valueOf(temp);
+		} catch(IOException e) {
+			System.out.println("Errore inserimento codice");
+		} catch (NumberFormatException n) {
+			System.out.println("Errore di inserimento codice");
+		}
+		
 		Calendar dataEsame = new GregorianCalendar();
 		Calendar scadenzaEsame = new GregorianCalendar();
 		
@@ -263,8 +282,23 @@ public class BDocente {
 		
 		Appello a = new Appello(dataEsame, scadenzaEsame, note, sede, codice_corso, matricola_docente);
 		
-		control.crea_appello(a, Integer.valueOf(id_appello));
+		boolean successo = false;
+		successo = control.crea_appello(a, Integer.valueOf(id_appello));
+		if (successo) {
+			System.out.println("Appello creato correttamente!");
+		} else {
+			System.out.println("Errore, non sono riuscito a creare l'appello");
+		}
 		
 	}
+	
+	
+	public static void elenca_appelli() {}
+	
+	public static void visualizza_prenotati() {}
+	
+	public static void verbale() {}
+	
+	public static void stampa_report() {}
 	
 }
