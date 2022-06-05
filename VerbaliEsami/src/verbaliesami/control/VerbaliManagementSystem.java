@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import verbaliesami.entity.*;
+import verbaliesami.entity.Appello.Sede;
 import verbaliesami.exceptions.CognomeInvalidoException;
 import verbaliesami.exceptions.DataInvalidaException;
 import verbaliesami.exceptions.DocenteNonPresenteException;
@@ -351,7 +352,7 @@ public class VerbaliManagementSystem {
 	
 	public boolean crea_appello(Appello a, int id_appello) {
 		Calendar ref = new GregorianCalendar();
-		ref.set(1, 1, 1225);
+		ref.set(1225, 0, 1);
 		
 		String matricola_pattern = "[a-zA-Z0-9]*";
 		String sede = "";
@@ -377,13 +378,21 @@ public class VerbaliManagementSystem {
 			if (id_appello <= 0) {
 				throw new IOException("Id non valido");
 			}
+			
+			if(a.getSede() == Sede.Aula){
+				sede = "AULA";
+			}else if(a.getSede() == Sede.Laboratorio) {
+				sede = "LABORATORIO";
+			}else {
+				sede = "ALTRO";
+			}
 						
 			AppelloDAO.create(id_appello, a.getData(), a.getScadenza(), a.getNote(), sede, a.getCorso().getCodice(), a.getDocente().getMatricola());
 			
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+			e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Appello non inseribile.");
 			System.out.println("Controllare se l'appello e' gia' stato inserito.");
 			System.out.println("Se non fosse gia' stato inserito, controllare i dati.");

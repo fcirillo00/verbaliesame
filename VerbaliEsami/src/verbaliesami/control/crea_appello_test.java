@@ -16,6 +16,7 @@ import verbaliesami.entity.Appello;
 
 class crea_appello_test {
 	
+	
 	Appello a = null;
 	int id = 0;
 	Calendar data = new GregorianCalendar();
@@ -33,13 +34,14 @@ class crea_appello_test {
 	
 	@Test
 	void crea_appello_1() {
+
 		// tutto valido
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 12, 5);
-		scadenza.set(2022, 11, 3);
+		data.set(2022, 6, 5);
+		scadenza.set(2022, 5, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 2, "A00000001");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
 		id = 5;
 		
 		boolean success = control.crea_appello(a, id);
@@ -57,18 +59,18 @@ class crea_appello_test {
 		//data non valida
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(1005, 12, 5);
-		scadenza.set(2022, 11, 3);
+		data.set(1005, 6, 5);
+		scadenza.set(2022, 6, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 2, "A00000001");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
 		id = 6;
 		
 		boolean success = control.crea_appello(a, id);
-		try {
+		/*try {
 		AppelloDAO.delete(id);
 		} catch (SQLException e) {
 			System.out.println("Eccezione");
-		}
+		}*/
 		
 		assertEquals(false, success);
 	}
@@ -78,10 +80,10 @@ class crea_appello_test {
 		//scadenza non valida
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 12, 5);
-		scadenza.set(1005, 11, 3);
+		data.set(2022, 6, 5);
+		scadenza.set(1005, 6, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 2, "A00000001");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
 		id = 7;
 		
 		boolean success = control.crea_appello(a, id);
@@ -102,7 +104,7 @@ class crea_appello_test {
 		data.set(2022, 12, 5);
 		scadenza.set(2022, 12, 10);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 2, "A00000001");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
 		id = 8;
 		
 		boolean success = control.crea_appello(a, id);
@@ -123,7 +125,7 @@ class crea_appello_test {
 		data.set(2022, 12, 5);
 		scadenza.set(2022, 12, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 987654, "A00000001");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 987654, "A00000001");
 		id = 9;
 		
 		boolean success = control.crea_appello(a, id);
@@ -144,7 +146,7 @@ class crea_appello_test {
 		data.set(2022, 12, 5);
 		scadenza.set(2022, 12, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 2, "A00000001A");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001A");
 		id = 10;
 		
 		boolean success = control.crea_appello(a, id);
@@ -165,7 +167,7 @@ class crea_appello_test {
 		data.set(2022, 12, 5);
 		scadenza.set(2022, 12, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 2, "A0000000B");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A0000000B");
 		id = 11;
 		
 		boolean success = control.crea_appello(a, id);
@@ -186,7 +188,7 @@ class crea_appello_test {
 		data.set(2022, 12, 5);
 		scadenza.set(2022, 12, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 2, "A!!@aaa");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A!!@aaa");
 		id = 12;
 		
 		boolean success = control.crea_appello(a, id);
@@ -207,7 +209,7 @@ class crea_appello_test {
 		data.set(2022, 12, 5);
 		scadenza.set(2022, 12, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "1", 2, "A!!@aaa");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A!!@aaa");
 		id = -1;
 		
 		boolean success = control.crea_appello(a, id);
