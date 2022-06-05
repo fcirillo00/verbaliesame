@@ -150,4 +150,25 @@ public class AppelloDAO {
 		return app;
 	}
 	
+	public static void delete(int id_appello) throws SQLException{
+		
+		PreparedStatement prep = null;
+		
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			
+			prep = conn.prepareStatement("DELETE FROM APPELLO WHERE id=?");
+			
+			prep.setInt(1,id_appello);
+			
+			prep.executeUpdate();
+			
+		} finally {
+			if(prep != null) {
+				prep.close();
+			}	
+		}		
+		
+	}
+	
 }
