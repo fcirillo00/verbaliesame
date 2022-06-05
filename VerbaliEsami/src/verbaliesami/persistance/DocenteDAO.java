@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import verbaliesami.entity.Appello;
 import verbaliesami.entity.Docente;
 
 public class DocenteDAO {

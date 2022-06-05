@@ -447,7 +447,7 @@ public class VerbaliManagementSystem {
 			PrenotazioneDAO.create(s.getMatricola(), AppelloDAO.readId(a));
 			return true;
 		} catch (SQLException e) {
-			System.out.println("Errore, appello non trovato nel DB per la prenotazione o appello gi� prenotato.");
+			System.out.println("Errore, appello non trovato nel DB per la prenotazione o appello gia' prenotato.");
 			return false;
 		} catch (NullPointerException e) {
 			System.out.println("Appello non inseribile, corso o docente non trovato.");

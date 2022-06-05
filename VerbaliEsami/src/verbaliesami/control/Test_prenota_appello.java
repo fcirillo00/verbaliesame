@@ -2,13 +2,11 @@ package verbaliesami.control;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -19,9 +17,9 @@ import verbaliesami.persistance.CorsoDAO;
 import verbaliesami.persistance.DocenteDAO;
 import verbaliesami.persistance.PrenotazioneDAO;
 import verbaliesami.persistance.StudenteDAO;
-import verbaliesami.control.VerbaliManagementSystem;
+//import verbaliesami.control.VerbaliManagementSystem;
 
-class VerbaliManagementSystemTestPrenotaAppello {
+class Test_prenota_appello {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {

@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import verbaliesami.entity.Corso;
 import verbaliesami.entity.Studente;
 
 public class PrenotazioneDAO {
