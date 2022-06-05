@@ -282,6 +282,29 @@ public class BDocente {
 		
 		Appello a = new Appello(dataEsame, scadenzaEsame, note, sede, codice_corso, matricola_docente);
 		
+		a.mostraInfoAppello();
+		System.out.println("Le informazioni inserite sono corrette?");
+		System.out.println("Inserire 'Y' per continuare, 'N' per terminare");
+		try {
+			String s = "x";
+			do {
+			s = buff.readLine();
+			if ( s.compareTo("Y") == 0){
+				
+			} else if ( s.compareTo("N") == 0 ){
+				System.out.println("Operazione annullata");
+				return;
+			} else {
+				System.out.println("Inserire un carattere valido: ('Y', 'N')");
+				s = "x";
+			}
+			} while (s.compareTo("x") == 0);
+		} catch(IOException e) {
+			System.out.println("Errore inserimento codice");
+		} catch (NumberFormatException n) {
+			System.out.println("Errore di inserimento codice");
+		}
+		
 		boolean successo = false;
 		successo = control.crea_appello(a, Integer.valueOf(id_appello));
 		if (successo) {
