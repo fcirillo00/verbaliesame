@@ -22,7 +22,6 @@ class Test_agg_docente {
 		assertEquals(true,success);
 	}
 	
-	
 	@Test
 	void testAgg_docenteDocente2() {
 		

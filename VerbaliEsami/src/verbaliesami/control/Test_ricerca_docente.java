@@ -23,6 +23,7 @@ class Test_ricerca_docente {
 		
 		control.canc_docente("A12345678");
 		
+		
 		assertNotEquals(null, success);		
 	}
 	

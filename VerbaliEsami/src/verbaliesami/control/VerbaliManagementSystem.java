@@ -8,6 +8,7 @@ import verbaliesami.exceptions.CognomeInvalidoException;
 import verbaliesami.exceptions.DocenteNonPresenteException;
 import verbaliesami.exceptions.MatricolaInvalidaException;
 import verbaliesami.exceptions.NomeInvalidoException;
+import verbaliesami.exceptions.UsernameVuotoException;
 import verbaliesami.persistance.AppelloDAO;
 import verbaliesami.persistance.CorsoDAO;
 import verbaliesami.persistance.DocenteDAO;
@@ -48,6 +49,9 @@ public class VerbaliManagementSystem {
 			if(!matricola.matches(matricola_pattern) || (matricola.length() != 9)) {
 				throw new MatricolaInvalidaException("Matricola non valida per inserimento caratteri non alfanumerici o dimensione diversa da 9.");
 			}
+			if(username.isBlank()) {
+				throw new UsernameVuotoException("Username vuoto.");
+			}
 			
 			
 			DocenteDAO.create(nome_docente, cognome_docente, matricola, username, password);
@@ -68,6 +72,10 @@ public class VerbaliManagementSystem {
 			//e.printStackTrace();
 			return false;
 		} catch (MatricolaInvalidaException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return false;
+		} catch (UsernameVuotoException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			return false;

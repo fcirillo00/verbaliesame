@@ -54,8 +54,5 @@ class Test_canc_docente {
 		
 		assertEquals(false, success);
 	}
-	
-	
-	
 
 }
