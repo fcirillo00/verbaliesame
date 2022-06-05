@@ -110,7 +110,7 @@ class Test_agg_docente {
 	@Test
 	void testAgg_docenteDocente9() {
 		
-		//matricola valida, nome valido, cognome vuoto, username invalido, password valida
+		//matricola valida, nome valido, cognome vuoto, username invalido(già presente nel DB), password valida
 		
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
@@ -122,20 +122,20 @@ class Test_agg_docente {
 	@Test
 	void testAgg_docenteDocente10() {
 		
-		//matricola valida, nome valido, cognome valido, username vuoto, password valida
+		//matricola valida, nome valido, cognome valido, username invalido (vuoto), password valida
 		
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
 		boolean success = control.agg_docente(new Docente("Giovanni", "Verdi", "B00110000", "", "1234"));		
 		
 		control.canc_docente("B00110000");
-		assertEquals(true,success);
+		assertEquals(false,success);
 	}
 	
 	@Test
 	void testAgg_docenteDocente11() {
 		
-		//matricola valida, nome valido, cognome vuoto, username vuoto, password valida
+		//matricola valida, nome valido, cognome valido, username valido, password valida
 		
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		

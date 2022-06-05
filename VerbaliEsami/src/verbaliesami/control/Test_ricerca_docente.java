@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import verbaliesami.entity.Docente;
@@ -18,7 +17,11 @@ class Test_ricerca_docente {
 
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
-		ArrayList<Docente> success = control.ricerca_docente("Roberto", "Natella");
+		control.agg_docente("A12345678", "Giovanni", "Bianchi", "GBianchi", "");
+		
+		ArrayList<Docente> success = control.ricerca_docente("Giovanni", "Bianchi");
+		
+		control.canc_docente("A12345678");
 		
 		assertNotEquals(null, success);		
 	}
@@ -75,12 +78,16 @@ class Test_ricerca_docente {
 	
 
 	@Test
-	void testRicerca_docenteString() {
+	void testRicerca_docenteString1() {
 		//matricola valida
 		
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
-		Docente success = control.ricerca_docente("A00000001");
+		control.agg_docente("A12345678", "Giovanni", "Bianchi", "GBianchi", "");
+		
+		Docente success = control.ricerca_docente("A12345678");
+		
+		control.canc_docente("A12345678");
 		
 		assertNotEquals(null, success);	
 	}
