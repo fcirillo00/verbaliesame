@@ -1,10 +1,14 @@
 package verbaliesami.control;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import verbaliesami.entity.*;
 import verbaliesami.exceptions.CognomeInvalidoException;
+import verbaliesami.exceptions.DataInvalidaException;
 import verbaliesami.exceptions.DocenteNonPresenteException;
 import verbaliesami.exceptions.MatricolaInvalidaException;
 import verbaliesami.exceptions.NomeInvalidoException;
@@ -346,19 +350,36 @@ public class VerbaliManagementSystem {
 	}
 	
 	public boolean crea_appello(Appello a, int id_appello) {
+		Calendar ref = new GregorianCalendar();
+		ref.set(1, 1, 1225);
 		
+		String matricola_pattern = "[a-zA-Z0-9]*";
 		String sede = "";
 		
-		if(a.getSede() == Appello.Sede.Aula) {
-			sede= "AULA";
-		}else if(a.getSede() == Appello.Sede.Laboratorio){
-			sede= "LABORATORIO";
-		}else {
-			sede = "ALTRO";
-		}
+		
 		
 		try {
+			
+			if (a.getScadenza().after(a.getData())) {
+				Calendar temp = new GregorianCalendar();
+				temp.setTimeInMillis(a.getData().getTimeInMillis() - 86400000);
+				a.setScadenza(temp);
+			}
+			
+			if (a.getData().before(ref) || a.getScadenza().before(ref)) {
+				throw new DataInvalidaException("Data non valida, precendente al 01/01/1225");
+			}
+			
+			if(!a.getDocente().getMatricola().matches(matricola_pattern) || (a.getDocente().getMatricola().length() != 9)) {
+				throw new MatricolaInvalidaException("Matricola non valida per inserimento caratteri non alfanumerici o dimensione diversa da 9.");
+			}
+			
+			if (id_appello <= 0) {
+				throw new IOException("Id non valido");
+			}
+						
 			AppelloDAO.create(id_appello, a.getData(), a.getScadenza(), a.getNote(), sede, a.getCorso().getCodice(), a.getDocente().getMatricola());
+			
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -367,8 +388,19 @@ public class VerbaliManagementSystem {
 			System.out.println("Controllare se l'appello e' gia' stato inserito.");
 			System.out.println("Se non fosse gia' stato inserito, controllare i dati.");
 			return false;
+		} catch (MatricolaInvalidaException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return false;
+		} catch (DataInvalidaException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return false;
 		} catch (NullPointerException e) {
-			System.out.println("Appello non inseribile, corso o docente non trovato.");
+			System.out.println("Errore, corso non esistente o docente non esistente");
+			return false;
+		} catch (IOException e) {
+			System.out.println("Errore, id invalido");
 			return false;
 		}
 		
@@ -406,7 +438,7 @@ public class VerbaliManagementSystem {
 			PrenotazioneDAO.create(s.getMatricola(), AppelloDAO.readId(a));
 			return true;
 		} catch (SQLException e) {
-			System.out.println("Errore, appello non trovato nel DB per la prenotazione o appello già prenotato.");
+			System.out.println("Errore, appello non trovato nel DB per la prenotazione o appello giï¿½ prenotato.");
 			return false;
 		} catch (NullPointerException e) {
 			System.out.println("Appello non inseribile, corso o docente non trovato.");
