@@ -79,7 +79,7 @@ public class AppelloDAO {
 		return lista;
 	}
 	
-	public static int readId(Appello a) throws SQLException {
+	public static int readId(Appello a) throws SQLException, NullPointerException {
 		
 		int id = 0;
 		PreparedStatement prep = null;
@@ -93,6 +93,7 @@ public class AppelloDAO {
 			prep.setDate(1, new java.sql.Date(a.getData().getTimeInMillis()));
 			prep.setInt(2, a.getCorso().getCodice());
 			prep.setString(3, a.getDocente().getMatricola());
+
 			
 			ResultSet rs = prep.executeQuery();
 			

@@ -359,6 +359,9 @@ public class VerbaliManagementSystem {
 			System.out.println("Controllare se l'appello e' gia' stato inserito.");
 			System.out.println("Se non fosse gia' stato inserito, controllare i dati.");
 			return false;
+		} catch (NullPointerException e) {
+			System.out.println("Appello non inseribile, corso o docente non trovato.");
+			return false;
 		}
 		
 	}
@@ -396,6 +399,9 @@ public class VerbaliManagementSystem {
 			return true;
 		} catch (SQLException e) {
 			System.out.println("Errore, appello non trovato nel DB per la prenotazione o appello già prenotato.");
+			return false;
+		} catch (NullPointerException e) {
+			System.out.println("Appello non inseribile, corso o docente non trovato.");
 			return false;
 		}
 	}

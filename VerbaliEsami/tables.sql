@@ -39,7 +39,8 @@ create table APPELLO (
     sede VARCHAR(50) check (sede in ('AULA', 'LABORATORIO', 'ALTRO')),
     codiceCorso INTEGER references CORSO(codice) ON DELETE cascade ON UPDATE cascade,
     matricolaDocente CHAR(9) references DOCENTE(matricola) ON DELETE cascade ON UPDATE cascade,
-    constraint check_scadenza check (scadenza <= data)
+    constraint check_scadenza check (scadenza <= data),
+    constraint unique_appello unique (data, matricolaDocente, codiceCorso)
 );
 
 create table VERBALE (
