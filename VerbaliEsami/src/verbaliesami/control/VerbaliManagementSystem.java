@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import verbaliesami.entity.*;
 import verbaliesami.exceptions.CognomeInvalidoException;
+import verbaliesami.exceptions.DocenteNonPresenteException;
 import verbaliesami.exceptions.MatricolaInvalidaException;
 import verbaliesami.exceptions.NomeInvalidoException;
 import verbaliesami.persistance.AppelloDAO;
@@ -20,7 +21,7 @@ public class VerbaliManagementSystem {
 
 	private static VerbaliManagementSystem instance = null;
 
-	protected VerbaliManagementSystem(){
+	private VerbaliManagementSystem(){
 		super();
 	}
 
@@ -121,12 +122,37 @@ public class VerbaliManagementSystem {
 		
 		ArrayList<Docente> lista_docenti = null;
 		
+		String pattern = "[a-zA-Z]*";		
+		
 		try {
+			
+			if((!nome.matches(pattern)) || (nome.compareTo("") == 0)){
+				throw new NomeInvalidoException("Nome non valido");
+			}
+			if(!cognome.matches(pattern) || (cognome.compareTo("") == 0)) {
+				throw new CognomeInvalidoException("Cognome non valido");
+			}
+			if(DocenteDAO.readSafe(nome, cognome) == null) {
+				throw new DocenteNonPresenteException("Nessun Docente trovato con i parametri forniti");
+			}
+			
 			lista_docenti = new ArrayList<Docente>(DocenteDAO.readSafe(nome, cognome));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Nessun docente trovato");
+		} catch (NomeInvalidoException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return null;
+		} catch (CognomeInvalidoException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return null;
+		} catch (DocenteNonPresenteException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return null;
 		}
 		
 		return lista_docenti;
@@ -136,12 +162,30 @@ public class VerbaliManagementSystem {
 		
 		Docente doc = null;
 		
+
+		String matricola_pattern = "[a-zA-Z0-9]*";	
+		
 		try {
+			
+			if((!matricola.matches(matricola_pattern)) || (matricola.length() != 9)) {
+				throw new MatricolaInvalidaException("Matricola non valida per inserimento caratteri non alfanumerici o dimensione diversa da 9.");
+			} else if(DocenteDAO.readSafe(matricola) == null) {
+				throw new DocenteNonPresenteException("Docente non presente nel DB");
+			}
+			
 			doc = new Docente(DocenteDAO.readSafe(matricola));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Nessun docente trovato");
+		} catch (MatricolaInvalidaException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return null;
+		} catch (DocenteNonPresenteException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return null;
 		}
 		
 		return doc;
@@ -150,13 +194,30 @@ public class VerbaliManagementSystem {
 	
 	public boolean canc_docente(String matricola) {
 		
+		String matricola_pattern = "[a-zA-Z0-9]*";
+		
 		try {
+			
+			if((!matricola.matches(matricola_pattern)) || (matricola.length() != 9)) {
+				throw new MatricolaInvalidaException("Matricola non valida per inserimento caratteri non alfanumerici o dimensione diversa da 9.");
+			} else if(DocenteDAO.readSafe(matricola) == null) {
+				throw new DocenteNonPresenteException("Docente non presente nel DB");
+			}
+			
 			DocenteDAO.delete(matricola);
 			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Errore: Connessione non riuscita o Nessun docente trovato");
+			return false;
+		} catch (MatricolaInvalidaException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return false;
+		} catch (DocenteNonPresenteException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
 			return false;
 		}
 		
