@@ -53,7 +53,6 @@ class Test_canc_docente {
 		boolean success = control.canc_docente("A1234567?");
 		
 		assertEquals(false, success);
-		
 	}
 	
 	

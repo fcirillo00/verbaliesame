@@ -144,5 +144,7 @@ class Test_agg_docente {
 		control.canc_docente("C11001100");
 		assertEquals(true,success);
 	}
+	
+	
 
 }
