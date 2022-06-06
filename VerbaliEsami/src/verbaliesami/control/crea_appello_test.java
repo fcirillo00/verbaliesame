@@ -38,7 +38,7 @@ class crea_appello_test {
 		// tutto valido
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 6, 5);
+		data.set(2022, 4, 5);
 		scadenza.set(2022, 5, 3);
 		
 		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
@@ -95,6 +95,7 @@ class crea_appello_test {
 
 		assertEquals(false, success);
 	}
+	
 	
 	@Test
 	void crea_appello_4(){
@@ -221,6 +222,48 @@ class crea_appello_test {
 
 		assertEquals(false, success);
 	}	
+	
+	@Test
+	void crea_appello_10(){
+		//scadenza non valida
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+
+		data.set(20222, 6, 5);
+		scadenza.set(1005, 6, 3);
+		
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
+		id = 13;
+		
+		boolean success = control.crea_appello(a, id);
+		try {
+		AppelloDAO.delete(id);
+		} catch (SQLException e) {
+			System.out.println("Eccezione");
+		}
+
+		assertEquals(false, success);
+	}
+	
+	@Test
+	void crea_appello_11(){
+		//scadenza non valida
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+
+		data.set(2022, 6, 5);
+		scadenza.set(10051, 6, 3);
+		
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
+		id = 14;
+		
+		boolean success = control.crea_appello(a, id);
+		try {
+		AppelloDAO.delete(id);
+		} catch (SQLException e) {
+			System.out.println("Eccezione");
+		}
+
+		assertEquals(false, success);
+	}
 	
 
 }

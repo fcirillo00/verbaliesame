@@ -449,6 +449,8 @@ public class VerbaliManagementSystem {
 	public boolean crea_appello(Appello a, int id_appello) {
 		Calendar ref = new GregorianCalendar();
 		ref.set(1225, 0, 1);
+		Calendar ref2 = new GregorianCalendar();
+		ref2.set(9999, 11, 31);
 		
 		String matricola_pattern = "[a-zA-Z0-9]*";
 		String sede = "";
@@ -457,11 +459,16 @@ public class VerbaliManagementSystem {
 		
 		try {
 			
+			if (a.getData().after(ref2) || a.getScadenza().after(ref2)) {
+				throw new DataInvalidaException("Data non valida, posteriore al 31/12/9999");
+			}
+			
 			if (a.getScadenza().after(a.getData())) {
 				Calendar temp = new GregorianCalendar();
 				temp.setTimeInMillis(a.getData().getTimeInMillis() - 86400000);
 				a.setScadenza(temp);
 			}
+			
 			
 			if (a.getData().before(ref) || a.getScadenza().before(ref)) {
 				throw new DataInvalidaException("Data non valida, precendente al 01/01/1225");
