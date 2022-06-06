@@ -1,6 +1,12 @@
 package verbaliesami.entity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import verbaliesami.persistance.AppelloDAO;
+import verbaliesami.persistance.PrenotazioneDAO;
+import verbaliesami.persistance.ValutazioneDAO;
+import verbaliesami.persistance.VerbaleDAO;
 
 public class Studente {
 
@@ -38,8 +44,20 @@ public class Studente {
 		this.password = s.password;
 		this.pin = s.pin;	
 		
-		appelliPrenotati = new ArrayList<Appello>(s.getAppelliPrenotati());
-		valutazioniConseguite = new ArrayList<Valutazione>(s.getValutazioniConseguite());
+		try {
+			appelliPrenotati = new ArrayList<Appello>(s.getAppelliPrenotati());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessun appello prenotato trovato");
+		}
+		try {
+			valutazioniConseguite = new ArrayList<Valutazione>(s.getValutazioniConseguite());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessuna valutazione conseguita trovata");
+		}
 	}
 	
 	
@@ -99,20 +117,25 @@ public class Studente {
 		
 	}
 
-	public ArrayList<Appello> getAppelliPrenotati() {
+	public ArrayList<Appello> getAppelliPrenotati() throws SQLException {
+		appelliPrenotati = PrenotazioneDAO.readAppelli(this.getMatricola());
 		return appelliPrenotati;
 	}
 
-	public void aggiungiAppelloPrenotato(Appello appelloPrenotato) {
+	public void aggiungiAppelloPrenotato(Appello appelloPrenotato) throws NullPointerException, SQLException {
 		this.appelliPrenotati.add(appelloPrenotato);
+		PrenotazioneDAO.create(this.getMatricola(), AppelloDAO.readId(appelloPrenotato));
 	}
 
-	public ArrayList<Valutazione> getValutazioniConseguite() {
+	public ArrayList<Valutazione> getValutazioniConseguite() throws SQLException {
+		
+		valutazioniConseguite = ValutazioneDAO.readValutazioniStudente(this.getMatricola());
 		return valutazioniConseguite;
 	}
 
-	public void aggiungiValutazioneConseguite(Valutazione valutazioneConseguita) {
+	public void aggiungiValutazioneConseguite(Valutazione valutazioneConseguita) throws NullPointerException, SQLException {
 		this.valutazioniConseguite.add(valutazioneConseguita);
+		ValutazioneDAO.create(valutazioneConseguita.getVoto(), valutazioneConseguita.getArgomenti_trattati(), VerbaleDAO.readIdFromAppello(AppelloDAO.readId(valutazioneConseguita.getVerbale_rif().getAppello_riferito())), valutazioneConseguita.getEsaminato().getMatricola());
 	}
 	
 	

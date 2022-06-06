@@ -97,6 +97,35 @@ public class ValutazioneDAO {
 		return lista;
 		
 	}
-	
+
+public static ArrayList<Valutazione> readValutazioniStudente(String matricola) throws SQLException {
+		
+		PreparedStatement prep = null;
+		ArrayList<Valutazione> lista = new ArrayList<Valutazione>();
+		
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			
+			prep = conn.prepareStatement("SELECT * FROM VALUTAZIONE WHERE matricolaStudente = ?");
+			prep.setString(1, matricola);
+			ResultSet rs = prep.executeQuery();
+			while (rs.next()) {
+				int voto = rs.getInt("voto");
+				String argomenti = rs.getString("argomenti_trattati");
+				String mat_studente = rs.getString("matricolaStudente");
+				int verbale = rs.getInt("verbale");
+				Verbale verbale_riferito = new Verbale(VerbaleDAO.read(verbale));
+				
+				lista.add(new Valutazione(voto, argomenti, verbale_riferito, mat_studente));
+			}			
+		} finally {
+			if(prep != null) {
+				prep.close();
+			}	
+		}
+		
+		return lista;
+		
+	}
 	
 }
