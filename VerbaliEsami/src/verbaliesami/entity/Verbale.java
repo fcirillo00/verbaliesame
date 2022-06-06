@@ -1,6 +1,11 @@
 package verbaliesami.entity;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import verbaliesami.persistance.AppelloDAO;
+import verbaliesami.persistance.ValutazioneDAO;
+import verbaliesami.persistance.VerbaleDAO;
 
 public class Verbale {
 	
@@ -39,10 +44,12 @@ public class Verbale {
 	}
 	
 	public void aggiungiEsaminato(Valutazione v) {
+		//La valutazione deve essere già inserita nel DB
 		esaminato.add(v);
 	}
 	
-	public ArrayList<Valutazione> getEsaminato(){
+	public ArrayList<Valutazione> getEsaminato() throws NullPointerException, SQLException{
+		esaminato = ValutazioneDAO.readValutazioni(VerbaleDAO.readIdFromAppello(AppelloDAO.readId(this.appello_riferito)));
 		return this.esaminato;
 	}
 	
