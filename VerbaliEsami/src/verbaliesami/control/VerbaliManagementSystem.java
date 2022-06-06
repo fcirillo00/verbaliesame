@@ -89,7 +89,22 @@
  * POSTCONDIZIONI: Viene restituira la lista dei corsi a cui e' associato il docente
  * 
  * public ArrayList<Appello> cerca_appello(int codiceCorso)
- * DESCRIZIONE: Accede alla lista degli appelli le
+ * DESCRIZIONE: Accede alla lista degli appelli legati ad un corso, identificato dal proprio codice univoco
+ * PRECONDIZIONI: Il corso deve essere presente nel DB e ci devono essere appelli legati al corso identificato dal codice
+ * POSTCONDIZIONI: Viene restituita la lista degli appelli legati al corso.
+ * 
+ * public boolean prenota_appello(Appello a, Studente s)
+ * DESCRIZIONE: Permette ad uno studente di prenotare un appello
+ * PRECONDIZIONI: Lo studente e l'appello devono essere presenti nel DB
+ * POSTCONDIZIONI: Lo studente viene prenotato all'appello
+ * 
+ * public Studente login (String username, String password) 
+ * DESCRIZIONE: Permette ad uno studente di effettuare il login
+ * PRECONDIZIONI: Lo studente deve essere registrato nel database, con campi username e password uguali ai parametri in ingresso
+ * POSTCONDIZIONI: Viene restituito l'oggetto Studente contenente le informazioni dello Studente specificato da username e password
+ * 
+ * LE ALTRE FUNZIONI, LE QUALI NON SONO STATE DOCUMENTATE, NON HANNO IMPLEMENTAZIONE
+ * 
  * 
  */
 
