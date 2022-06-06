@@ -132,7 +132,7 @@ public class Studente {
 		return valutazioniConseguite;
 	}
 
-	public void aggiungiValutazioneConseguite(Valutazione valutazioneConseguita) throws NullPointerException, SQLException {
+	public void aggiungiValutazioneConseguita(Valutazione valutazioneConseguita) throws NullPointerException, SQLException {
 		this.valutazioniConseguite.add(valutazioneConseguita);
 		ValutazioneDAO.create(valutazioneConseguita.getVoto(), valutazioneConseguita.getArgomenti_trattati(), VerbaleDAO.readIdFromAppello(AppelloDAO.readId(valutazioneConseguita.getVerbale_rif().getAppello_riferito())), valutazioneConseguita.getEsaminato().getMatricola());
 	}
