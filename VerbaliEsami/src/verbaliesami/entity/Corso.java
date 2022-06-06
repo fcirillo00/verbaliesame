@@ -117,5 +117,11 @@ public class Corso {
 		return this.titolarita_docenti;
 	}
 	
-	
+	public boolean equals (Corso c) {
+		if (this.cfu == c.cfu && this.codice == c.codice && this.denominazione.equals(c.denominazione) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }
