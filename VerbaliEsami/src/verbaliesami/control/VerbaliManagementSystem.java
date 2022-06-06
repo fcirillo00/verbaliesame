@@ -142,10 +142,10 @@ public class VerbaliManagementSystem {
 			String pattern = "[a-zA-Z]*";
 			String matricola_pattern = "[a-zA-Z0-9]*";
 			
-			if((!nome_docente.matches(pattern)) || (nome_docente.compareTo("") == 0)){
+			if((!nome_docente.matches(pattern)) || (nome_docente.isBlank())){
 				throw new NomeInvalidoException("Nome non valido");
 			}
-			if(!cognome_docente.matches(pattern) || (cognome_docente.compareTo("") == 0)) {
+			if(!cognome_docente.matches(pattern) || (cognome_docente.isBlank())) {
 				throw new CognomeInvalidoException("Cognome non valido");
 			}
 			if(!matricola.matches(matricola_pattern) || (matricola.length() != 9)) {
@@ -192,10 +192,10 @@ public class VerbaliManagementSystem {
 			String pattern = "[a-zA-Z]*";
 			String matricola_pattern = "[a-zA-Z0-9]*";
 			
-			if((!docente.getNome().matches(pattern)) || (docente.getNome().compareTo("") == 0)){
+			if((!docente.getNome().matches(pattern)) || (docente.getNome().isBlank())){
 				throw new NomeInvalidoException("Nome non valido");
 			}
-			if(!docente.getCognome().matches(pattern) || (docente.getCognome().compareTo("") == 0)) {
+			if(!docente.getCognome().matches(pattern) || (docente.getCognome().isBlank())) {
 				throw new CognomeInvalidoException("Cognome non valido");
 			}
 			if(!docente.getMatricola().matches(matricola_pattern) || (docente.getMatricola().length() != 9)) {
@@ -236,10 +236,10 @@ public class VerbaliManagementSystem {
 		
 		try {
 			
-			if((!nome.matches(pattern)) || (nome.compareTo("") == 0)){
+			if((!nome.matches(pattern)) || (nome.isBlank())){
 				throw new NomeInvalidoException("Nome non valido");
 			}
-			if(!cognome.matches(pattern) || (cognome.compareTo("") == 0)) {
+			if(!cognome.matches(pattern) || (cognome.isBlank())) {
 				throw new CognomeInvalidoException("Cognome non valido");
 			}
 			if(DocenteDAO.readSafe(nome, cognome) == null) {

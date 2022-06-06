@@ -35,6 +35,7 @@ public class BSegreteriaStudenti {
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
 		String pattern = "[a-zA-Z]*";
+		String matricola_pattern = "[a-zA-Z0-9]*";
 		
 		String nome_doc = "";
 		String cognome_doc = "";
@@ -54,8 +55,10 @@ public class BSegreteriaStudenti {
 				nome_doc = br.readLine();
 				if(!nome_doc.matches(pattern)) {
 					System.out.println("Hai inserito numeri. Riprovare:");
+				}else if(nome_doc.isBlank()) {
+					System.out.println("Nessun valore inserito");
 				}
-			}while(!nome_doc.matches(pattern));
+			}while(!nome_doc.matches(pattern) || (nome_doc.isBlank()));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -71,8 +74,10 @@ public class BSegreteriaStudenti {
 				cognome_doc = br.readLine();
 				if(!cognome_doc.matches(pattern)) {
 					System.out.println("Hai inserito numeri. Riprovare:");
+				}else if(cognome_doc.isBlank()) {
+					System.out.println("Nessun valore inserito");
 				}
-			}while(!cognome_doc.matches(pattern));
+			}while(!cognome_doc.matches(pattern)|| (cognome_doc.isBlank()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -84,10 +89,10 @@ public class BSegreteriaStudenti {
 		
 		try {
 			
-			while(matricola_doc.length() != 9) {
+			while(matricola_doc.length() != 9 || (!matricola_doc.matches(matricola_pattern))) {
 				matricola_doc = br.readLine();
 				
-				if(matricola_doc.length() != 9) {
+				if(matricola_doc.length() != 9 || (!matricola_doc.matches(matricola_pattern))) {
 					System.out.println("Inserita matricola non corretta, riprovare...");
 				}
 			}
@@ -103,7 +108,12 @@ public class BSegreteriaStudenti {
 		System.out.println("INSERIRE USERNAME DOCENTE:");
 		
 		try {
-			username_doc = br.readLine();
+			while(username_doc.isBlank()) {
+				username_doc = br.readLine();
+				if(username_doc.isBlank()) {
+					System.out.println("Username vuoto");
+				}
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -157,6 +167,7 @@ public class BSegreteriaStudenti {
 		String buffer = "";
 		String pattern = "[a-zA-Z]*";
 		String pattern2 = "[' ']";
+		String matricola_pattern = "[a-zA-Z0-9]*";
 		
 		do {
 			
@@ -188,8 +199,11 @@ public class BSegreteriaStudenti {
 					nome_doc = br.readLine();
 					if(!nome_doc.matches(pattern)) {
 						System.out.println("Hai inserito caratteri non validi. Riprovare:");
+					}else if(nome_doc.isBlank()) {
+						System.out.println("Nessun valore inserito");
 					}
-				}while((!nome_doc.matches(pattern)) && (!nome_doc.matches(pattern2)));
+					
+				}while(((!nome_doc.matches(pattern)) && (!nome_doc.matches(pattern2))) || (nome_doc.isBlank()));
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -205,8 +219,10 @@ public class BSegreteriaStudenti {
 					cognome_doc = br.readLine();
 					if(!cognome_doc.matches(pattern)) {
 						System.out.println("Hai inserito caratteri non validi. Riprovare:");
+					}else if(cognome_doc.isBlank()) {
+						System.out.println("Nessun valore inserito");
 					}
-				}while(!cognome_doc.matches(pattern));
+				}while(((!cognome_doc.matches(pattern)) && (!cognome_doc.matches(pattern2))) || (cognome_doc.isBlank()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
@@ -226,6 +242,7 @@ public class BSegreteriaStudenti {
 			
 			while(it.hasNext()) {
 				Docente docente = new Docente(it.next());
+				System.out.println("INDICE DOCENTE ["+indice_docente+"]");
 				docente.mostraInfoDocente();
 				ArrayList<Corso> c = new ArrayList<Corso>(docente.getCorsiAssociati());
 				Iterator<Corso> it_corso = c.iterator();
@@ -268,10 +285,10 @@ public class BSegreteriaStudenti {
 			
 			try {
 				
-				while(matricola_doc.length() != 9) {
+				while((matricola_doc.length() != 9) || (!matricola_doc.matches(matricola_pattern)) ) {
 					matricola_doc = br.readLine();
 					
-					if(matricola_doc.length() != 9) {
+					if((matricola_doc.length() != 9) || (!matricola_doc.matches(matricola_pattern))) {
 						System.out.println("Inserita matricola non corretta, riprovare...");
 					}
 				}			
@@ -324,16 +341,18 @@ public class BSegreteriaStudenti {
 		if(buffer.compareTo("Y")==0) {
 			String nome_doc = "";
 			try {
-				
 				System.out.println("INSERIRE NOME DOCENTE:");
 				
 				do {
 					nome_doc = br.readLine();
 					if(!nome_doc.matches(pattern)) {
 						System.out.println("Hai inserito caratteri non validi. Riprovare:");
+					}else if(nome_doc.isBlank()) {
+						System.out.println("Nessun valore inserito");
 					}
-				}while(!nome_doc.matches(pattern));
-				
+					
+				}while(((!nome_doc.matches(pattern)) && (!nome_doc.matches(pattern2))) || (nome_doc.isBlank()));
+	
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
@@ -366,24 +385,26 @@ public class BSegreteriaStudenti {
 		}while((buffer.compareTo("Y") != 0)&&(buffer.compareTo("N") != 0));
 		
 		if(buffer.compareTo("Y")==0) {
-			String cognome_doc = "";
+			String cognome_doc = "";	
+			
 			try {
 				
-				System.out.println("INSERIRE COGNOME DOCENTE:");
+				System.out.println("INSERIRE COGNOME DOCENTE:"); 
 				
 				do {
 					cognome_doc = br.readLine();
 					if(!cognome_doc.matches(pattern)) {
 						System.out.println("Hai inserito caratteri non validi. Riprovare:");
+					}else if(cognome_doc.isBlank()) {
+						System.out.println("Nessun valore inserito");
 					}
-				}while(!cognome_doc.matches(pattern));
-				
+				}while(((!cognome_doc.matches(pattern)) && (!cognome_doc.matches(pattern2))) || (cognome_doc.isBlank()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				//e.printStackTrace();
-				System.out.println("Nome non valido");
+				System.out.println("Cognome non valido");
 				return;
-			}
+			} 
 			
 			
 			new_docente.setCognome(cognome_doc);
@@ -411,14 +432,15 @@ public class BSegreteriaStudenti {
 		
 		if(buffer.compareTo("Y")==0) {
 			String matricola_doc = "";
+			
 			try {
 				
 				System.out.println("INSERIRE MATRICOLA DOCENTE:");
 				
-				while(matricola_doc.length() != 9) {
+				while(matricola_doc.length() != 9 || (!matricola_doc.matches(matricola_pattern))) {
 					matricola_doc = br.readLine();
 					
-					if(matricola_doc.length() != 9) {
+					if(matricola_doc.length() != 9 || (!matricola_doc.matches(matricola_pattern))) {
 						System.out.println("Inserita matricola non corretta, riprovare...");
 					}
 				}
