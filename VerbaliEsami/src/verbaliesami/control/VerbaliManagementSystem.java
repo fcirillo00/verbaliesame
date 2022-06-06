@@ -52,19 +52,19 @@
  * 
  * public ArrayList<Corso> ricerca_corso_denominazione(String denominazione_corso)
  * DESCRIZIONE: Restituisce i corsi presente nella base di dati con campo denominazione uguale al parametro in ingresso.
- * PRECONDIZIONI: nessuna
+ * PRECONDIZIONI: Il parametro può contenere solo caratteri alfabetici e spazi.
  * POSTCONDIZIONI: Viene restituita la lista di corsi con denominazione pari a quella inserita. Se nessun corso corrispondente e' presente nella base di
  * 				   dati, il valore di ritorno e' null
  * 
  * public ArrayList<Corso> ricerca_corso_docente(String matricola_docente)
  * DESCRIZIONE: Restituisce i corsi presente nella base di dati associati al docente con matricola pari a quella inserita.
- * PRECONDIZIONI: nessuna
+ * PRECONDIZIONI: il parametro può contenere solo 9 caratteri alfanumerici 
  * POSTCONDIZIONI: Viene restituita la lista di corsi associati al docente con matricola pari a quella inserita. Se nessun corso corrispondente e' 
  * 				   presente nella base di dati, il valore di ritorno e' null
  * 
  * public ArrayList<Corso> ricerca_corso_docente(String nome_docente, String cognome_docente)
  * DESCRIZIONE: Restituisce i corsi presente nella base di dati associati ai docenti con nome e cognome pari a quelli inseriti.
- * PRECONDIZIONI: nessuna
+ * PRECONDIZIONI: i due parametri possono contenere solo caratteri alfabetici e spazi.
  * POSTCONDIZIONI: Viene restituita la lista di corsi associati ai docenti con nome e cognome pari a quelli inseriti. Se nessun corso corrispondente e' 
  * 				   presente nella base di dati, il valore di ritorno e' null
  * 
