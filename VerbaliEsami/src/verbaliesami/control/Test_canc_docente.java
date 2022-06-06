@@ -12,7 +12,7 @@ class Test_canc_docente {
 		
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
-		control.agg_docente("A12345678", "Test", "Prova", "", "");
+		control.agg_docente("A12345678", "Test", "Prova", "Username", "1234");
 		
 		boolean success = control.canc_docente("A12345678");
 		

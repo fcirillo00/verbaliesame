@@ -63,7 +63,7 @@ public class Appello {
 		
 		//Il verbale non esiste all'inizio, ma deve essere creato appositamente
 		verbalizzazione = null;
-		this.prenotazione = new ArrayList<>();
+		this.prenotazione = new ArrayList<Studente>();
 		
 	}
 	
@@ -85,7 +85,7 @@ public class Appello {
 			System.out.println("Appello non valido");
 		}
 		try {
-			this.prenotazione = PrenotazioneDAO.readStudenti(AppelloDAO.readId(this));
+			this.prenotazione = new ArrayList<Studente>(PrenotazioneDAO.readStudenti(AppelloDAO.readId(this)));
 		} catch (NullPointerException | SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();

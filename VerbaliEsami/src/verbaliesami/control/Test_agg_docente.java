@@ -125,7 +125,7 @@ class Test_agg_docente {
 		
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
-		boolean success = control.agg_docente(new Docente("Giovanni", "Verdi", "B00110000", "", "1234"));		
+		boolean success = control.agg_docente(new Docente("Giovanni", "Verdi", "B00110000", " ", "1234"));		
 		
 		control.canc_docente("B00110000");
 		assertEquals(false,success);
