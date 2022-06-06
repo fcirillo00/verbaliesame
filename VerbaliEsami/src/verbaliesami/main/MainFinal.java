@@ -30,7 +30,7 @@ public class MainFinal {
 			if (!input.matches(pattern)) {
 				System.out.println("Inserire un numero.");
 			}
-		} while (!input.matches(pattern));
+		} while (!input.matches(pattern) );
 		int choice = Integer.valueOf(input);
 		
 		switch (choice) {
@@ -47,7 +47,7 @@ public class MainFinal {
 			BStudente.prenota_appello();
 			break;
 		default:
-			System.out.println("Errore");
+			System.out.println("Indice Errato");
 			break;
 		}
 	}
