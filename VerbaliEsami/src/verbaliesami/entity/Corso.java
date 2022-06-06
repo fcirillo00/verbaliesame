@@ -31,7 +31,7 @@ public class Corso {
 		this.cfu = c.getCfu();
 		
 		try {
-			appelli = new ArrayList<Appello>(c.getAppelli());
+			this.appelli = AppelloDAO.read(this.getCodice());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -39,7 +39,7 @@ public class Corso {
 		}
 		
 		try {
-			titolarita_docenti = new ArrayList<Titolarita>(c.getTitolarita_docenti());
+			this.titolarita_docenti = TitolaritaDAO.readFromCorso(this.getCodice());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -108,14 +108,12 @@ public class Corso {
 		this.cfu = cfu;
 	}
 
-	public ArrayList<Appello> getAppelli() throws SQLException {
-		this.appelli = AppelloDAO.read(this.getCodice());
+	public ArrayList<Appello> getAppelli(){
 		return appelli;
 	}
 
 
 	public ArrayList<Titolarita> getTitolarita_docenti() throws SQLException {
-		this.titolarita_docenti = TitolaritaDAO.readFromCorso(this.getCodice());
 		return this.titolarita_docenti;
 	}
 	

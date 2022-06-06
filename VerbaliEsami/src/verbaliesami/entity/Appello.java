@@ -84,7 +84,13 @@ public class Appello {
 			//e.printStackTrace();
 			System.out.println("Appello non valido");
 		}
-		this.prenotazione = new ArrayList<>();
+		try {
+			this.prenotazione = PrenotazioneDAO.readStudenti(AppelloDAO.readId(this));
+		} catch (NullPointerException | SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessun appello o nessuna prenotazione trovata");
+		}
 				
 	}
 
@@ -217,15 +223,6 @@ public class Appello {
 	public void mostraListaPrenotati() {
 		
 		System.out.println("LISTA PRENOTATI");
-		
-		try {
-			prenotazione = PrenotazioneDAO.readStudenti(AppelloDAO.readId(this));
-		} catch (NullPointerException | SQLException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("Appello non vaido");
-			return;
-		}
 		
 		Iterator<Studente> it = this.prenotazione.iterator();
 		

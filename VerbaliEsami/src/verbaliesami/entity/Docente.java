@@ -43,14 +43,26 @@ public class Docente {
 		this.password = d.password;
 	
 		try {
-			corsi_associati = new ArrayList<Titolarita>(d.getTitolarita());
+			
+			this.corsi_associati = TitolaritaDAO.readFromDocente(this.getMatricola());
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Nessuna titolarita' trovata");
 		}
 		try {
-			appelli = new ArrayList<Appello>(d.getAppelli());
+			ArrayList<Corso> lista_corsi = this.getCorsiAssociati();
+			
+			Iterator<Corso> it = lista_corsi.iterator();
+			while(it.hasNext()) {
+				ArrayList<Appello> lista_app = AppelloDAO.read(it.next().getCodice());
+				Iterator<Appello> it_app = lista_app.iterator();
+				while(it_app.hasNext()) {
+					this.appelli.add(it_app.next());
+				}
+				
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -110,9 +122,7 @@ public class Docente {
 
 
 	public ArrayList<Titolarita> getTitolarita() throws SQLException {
-		
-		this.corsi_associati = TitolaritaDAO.readFromDocente(this.getMatricola());
-		
+
 		return this.corsi_associati;
 		
 	}
@@ -140,20 +150,7 @@ public class Docente {
 	}
 
 
-	public ArrayList<Appello> getAppelli() throws SQLException {
-		
-		ArrayList<Corso> lista_corsi = this.getCorsiAssociati();
-		
-		Iterator<Corso> it = lista_corsi.iterator();
-		while(it.hasNext()) {
-			ArrayList<Appello> lista_app = AppelloDAO.read(it.next().getCodice());
-			Iterator<Appello> it_app = lista_app.iterator();
-			while(it_app.hasNext()) {
-				this.appelli.add(it_app.next());
-			}
-			
-		}
-				
+	public ArrayList<Appello> getAppelli() {				
 		return appelli;
 	}
 

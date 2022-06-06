@@ -45,14 +45,14 @@ public class Studente {
 		this.pin = s.pin;	
 		
 		try {
-			appelliPrenotati = new ArrayList<Appello>(s.getAppelliPrenotati());
+			appelliPrenotati = PrenotazioneDAO.readAppelli(this.getMatricola());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Nessun appello prenotato trovato");
 		}
 		try {
-			valutazioniConseguite = new ArrayList<Valutazione>(s.getValutazioniConseguite());
+			valutazioniConseguite = ValutazioneDAO.readValutazioniStudente(this.getMatricola());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -117,8 +117,8 @@ public class Studente {
 		
 	}
 
-	public ArrayList<Appello> getAppelliPrenotati() throws SQLException {
-		appelliPrenotati = PrenotazioneDAO.readAppelli(this.getMatricola());
+	public ArrayList<Appello> getAppelliPrenotati(){
+		
 		return appelliPrenotati;
 	}
 
@@ -127,9 +127,8 @@ public class Studente {
 		PrenotazioneDAO.create(this.getMatricola(), AppelloDAO.readId(appelloPrenotato));
 	}
 
-	public ArrayList<Valutazione> getValutazioniConseguite() throws SQLException {
+	public ArrayList<Valutazione> getValutazioniConseguite() {
 		
-		valutazioniConseguite = ValutazioneDAO.readValutazioniStudente(this.getMatricola());
 		return valutazioniConseguite;
 	}
 

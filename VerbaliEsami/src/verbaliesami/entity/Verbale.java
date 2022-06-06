@@ -25,7 +25,13 @@ public class Verbale {
 		
 		this.appello_riferito = new Appello(verbale.getAppello_riferito());
 		this.esaminatore = new Docente(verbale.getEsaminatore());
-		this.esaminato = new ArrayList<Valutazione>();
+		try {
+			this.esaminato = ValutazioneDAO.readValutazioni(VerbaleDAO.readIdFromAppello(AppelloDAO.readId(this.appello_riferito)));
+		} catch (NullPointerException | SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessun appello o nessuna valutazione trovata");
+		}
 		
 	}
 	
@@ -48,8 +54,8 @@ public class Verbale {
 		esaminato.add(v);
 	}
 	
-	public ArrayList<Valutazione> getEsaminato() throws NullPointerException, SQLException{
-		esaminato = ValutazioneDAO.readValutazioni(VerbaleDAO.readIdFromAppello(AppelloDAO.readId(this.appello_riferito)));
+	public ArrayList<Valutazione> getEsaminato() {
+		
 		return this.esaminato;
 	}
 	
