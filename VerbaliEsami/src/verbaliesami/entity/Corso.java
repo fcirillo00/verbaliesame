@@ -3,6 +3,7 @@ package verbaliesami.entity;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import verbaliesami.persistance.AppelloDAO;
 import verbaliesami.persistance.TitolaritaDAO;
 
 public class Corso {
@@ -30,8 +31,21 @@ public class Corso {
 		this.denominazione = c.getDenominazione();
 		this.cfu = c.getCfu();
 		
-		appelli = new ArrayList<Appello>(c.getAppelli());
-		titolarita_docenti = new ArrayList<Titolarita>(c.getTitolarita_docenti());
+		try {
+			appelli = new ArrayList<Appello>(c.getAppelli());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessun appello trovato");
+		}
+		
+		try {
+			titolarita_docenti = new ArrayList<Titolarita>(c.getTitolarita_docenti());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessun docente titolare trovato");
+		}
 	}
 
 	
@@ -39,9 +53,16 @@ public class Corso {
 		System.out.println("Corso di " + this.denominazione + ":");
 		System.out.format("CFU: %d\n", this.cfu);
 		System.out.format("Codice: %d\n", this.codice); 
-		for (int i=0; i < this.titolarita_docenti.size(); i++) {
-			Docente d = this.titolarita_docenti.get(i).getDocente();
-			System.out.format("Docente: %s %s", d.getNome(), d.getCognome());
+		try {
+			for (int i=0; i < this.getTitolarita_docenti().size(); i++) {
+				Docente d = this.getTitolarita_docenti().get(i).getDocente();
+				System.out.format("Docente: %s %s", d.getNome(), d.getCognome());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Nessun docente associato trovato");
+			return;
 		}
 
 		System.out.println("");
@@ -58,7 +79,7 @@ public class Corso {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
-			System.out.println("Nessun corso associato.");
+			System.out.println("Nessun docente associato.");
 		}
 		return docenti;
 	}
@@ -88,20 +109,13 @@ public class Corso {
 		this.cfu = cfu;
 	}
 
-	public ArrayList<Appello> getAppelli() {
-		return appelli;
+	public ArrayList<Appello> getAppelli() throws SQLException {
+		return AppelloDAO.read(this.getCodice());
 	}
 
-	public void aggiungiAppello(Appello appello) {
-		this.appelli.add(appello);
-	}
 
-	public ArrayList<Titolarita> getTitolarita_docenti() {
-		return titolarita_docenti;
-	}
-
-	public void aggiungiDocenteTitolare(Titolarita titolarita) {
-		this.titolarita_docenti.add(titolarita);
+	public ArrayList<Titolarita> getTitolarita_docenti() throws SQLException {
+		return TitolaritaDAO.readFromCorso(this.getCodice());
 	}
 	
 	

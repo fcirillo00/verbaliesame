@@ -1,3 +1,99 @@
+/* 	DOCUMENTAZIONE
+ * 
+ * public static VerbaliManagementSystem getInstance()
+ * DESCRIZIONE: Permette di ottenere l'unica istanza del VerbaliManagementSystem per effettuare operazioni di controllo
+ * PRECONDIZIONI: nessuna
+ * POSTCONDIZIONI: Viene restituita l'istanza del VerbaliManagementSystem.
+ * 
+ * public boolean agg_docente(String matricola, String nome_docente, String cognome_docente, String username, String password)
+ * DESCRIZIONE: Permette di aggiungere un nuovo docente alla base di dati, dando in ingresso il valore dei suoi campi.
+ * PRECONDIZIONI: Il docente non deve essere già presente ed i campi devono essere correttamente compilati: nome e cognome composti da solo lettere,
+ * 				  matricola composta da soli caratteri alfanumerici e di 9 caratteri, username non vuoto
+ * POSTCONDIZIONI: Il nuovo docente è inserito nella base di dati
+ * 
+ * public boolean agg_docente(Docente docente)
+ * DESCRIZIONE: Permette di aggiungere un nuovo docente alla base di dati, dando in ingresso un oggetto docente.
+ * PRECONDIZIONI: Il docente non deve essere già presente ed le risorse dell'oggetto devono essere correttamente istanziate: nome e cognome composti 
+ *                da solo lettere, matricola composta da soli caratteri alfanumerici e di 9 caratteri, username non vuoto
+ * POSTCONDIZIONI: Il nuovo docente è inserito nella base di dati
+ * 
+ * public ArrayList<Docente> ricerca_docente(String nome, String cognome)
+ * DESCRIZIONE: Restituisce la lista dei docenti presenti nella base di dati con campi nome e cognome uguali ai parametri in ingresso.
+ * PRECONDIZIONI: I parametri devono essere correttamente compilati: composti da sole lettere.
+ * POSTCONDIZIONI: Viene restituita la lista dei docenti corrispondenti. Se nessun docente corrispondente è presente nella base di dati, il valore di
+ * 				   ritorno è null.
+ * 
+ * public Docente ricerca_docente(String matricola)
+ * DESCRIZIONE: Restituisce il docente presente nella base di dati con campo matricola uguale al parametro in ingresso.
+ * PRECONDIZIONI: Il parametro matricola deve essere correttamente compilato: composto da caratteri alfanumerici e di lunghezza pari a 9 caratteri.
+ * POSTCONDIZIONI: Viene restituito il singolo docente con matricola pari a quella inserita. Se nessun docente corrispondente è presente nella base di
+ * 				   dati, il valore di ritorno è null
+ * 
+ * public boolean canc_docente(String matricola)
+ * DESCRIZIONE: Elimina il docente dalla base di dati con matricola pari a quella inserita.
+ * PRECONDIZIONI: Il docente deve essere presente nella base di dati
+ * POSTCONDIZIONI: Il docente viene eliminato dalla base di dati
+ * 
+ * public boolean agg_corso(int codice, String denominazione_corso, int CFU)
+ * DESCRIZIONE: Permette di aggiungere un nuovo corso alla base di dati, dando in ingresso il valore dei suoi campi.
+ * PRECONDIZIONI: Il corso non deve essere già presente nella base di dati.
+ * POSTCONDIZIONI: Il nuovo corso è inserito nella base di dati
+ * 
+ * public boolean agg_corso(Corso corso)
+ * DESCRIZIONE: Permette di aggiungere un nuovo corso alla base di dati, dando in ingresso un oggetto corso.
+ * PRECONDIZIONI: Il corso non deve essere già presente nella base di dati.
+ * POSTCONDIZIONI: Il nuovo corso è inserito nella base di dati 
+ * 
+ * public Corso ricerca_corso(int codice)
+ * DESCRIZIONE: Restituisce il corso presente nella base di dati con campo codice uguale al parametro in ingresso.
+ * PRECONDIZIONI: nessuna
+ * POSTCONDIZIONI: Viene restituito il singolo corso con codice pari a quello inserito. Se nessun corso corrispondente è presente nella base di
+ * 				   dati, il valore di ritorno è null
+ * 
+ * public ArrayList<Corso> ricerca_corso_denominazione(String denominazione_corso)
+ * DESCRIZIONE: Restituisce i corsi presente nella base di dati con campo denominazione uguale al parametro in ingresso.
+ * PRECONDIZIONI: nessuna
+ * POSTCONDIZIONI: Viene restituita la lista di corsi con denominazione pari a quella inserita. Se nessun corso corrispondente è presente nella base di
+ * 				   dati, il valore di ritorno è null
+ * 
+ * public ArrayList<Corso> ricerca_corso_docente(String matricola_docente)
+ * DESCRIZIONE: Restituisce i corsi presente nella base di dati associati al docente con matricola pari a quella inserita.
+ * PRECONDIZIONI: nessuna
+ * POSTCONDIZIONI: Viene restituita la lista di corsi associati al docente con matricola pari a quella inserita. Se nessun corso corrispondente è 
+ * 				   presente nella base di dati, il valore di ritorno è null
+ * 
+ * public ArrayList<Corso> ricerca_corso_docente(String nome_docente, String cognome_docente)
+ * DESCRIZIONE: Restituisce i corsi presente nella base di dati associati ai docenti con nome e cognome pari a quelli inseriti.
+ * PRECONDIZIONI: nessuna
+ * POSTCONDIZIONI: Viene restituita la lista di corsi associati ai docenti con nome e cognome pari a quelli inseriti. Se nessun corso corrispondente è 
+ * 				   presente nella base di dati, il valore di ritorno è null
+ * 
+ * public boolean canc_corso(int codice)
+ * DESCRIZIONE: Elimina il docecorsonte dalla base di dati con codice pari a quello inserito.
+ * PRECONDIZIONI: Il corso deve essere presente nella base di dati
+ * POSTCONDIZIONI: Il corso viene eliminato dalla base di dati
+ * 
+ * public boolean assoc_doc_corso(String matricola_docente, int codice_corso, int annoAccademico)
+ * DESCRIZIONE: Viene associato il docente identificato dalla matricola ed il corso identificato dal codice, con la specifica dell'anno accademico
+ * PRECONDIZIONI: Il docente ed il corso devono essere presenti nella base di dati, e tale associzione non deve essere già stata fatta.
+ * POSTCONDIZIONI: Viene registrata l'associazione nella base di dati
+ * 
+ * public boolean crea_appello(Appello a, int id_appello) 
+ * DESCRIZIONE: Viene registrato un nuovo appello
+ * PRECONDIZIONI: L'appello non deve essere già stato inserito e id_appello è univoco e legato a tale appello.
+ * POSTCONDIZIONI: Viene registrato il nuovo appello nella base di dati.
+ * 
+ * 
+ * 
+ */
+
+
+
+
+
+
+
+
 package verbaliesami.control;
 
 import java.io.IOException;
@@ -442,7 +538,13 @@ public class VerbaliManagementSystem {
 	}
 	
 	public boolean prenota_appello(Appello a, Studente s) {
-		a.aggiungiStudentePrenotato(s);
+		try {
+			a.aggiungiStudentePrenotato(s);
+		} catch (NullPointerException | SQLException e1) {
+			// TODO Auto-generated catch block
+			//e1.printStackTrace();
+			System.out.println("Appello non valido");
+		}
 		try {
 			PrenotazioneDAO.create(s.getMatricola(), AppelloDAO.readId(a));
 			return true;

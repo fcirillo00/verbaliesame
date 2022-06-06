@@ -8,8 +8,11 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 
+import verbaliesami.persistance.AppelloDAO;
 import verbaliesami.persistance.CorsoDAO;
 import verbaliesami.persistance.DocenteDAO;
+import verbaliesami.persistance.PrenotazioneDAO;
+import verbaliesami.persistance.VerbaleDAO;
 
 public class Appello {
 	
@@ -75,7 +78,13 @@ public class Appello {
 		this.sede = a.sede;
 		this.corso = new Corso(a.corso);
 		this.docente = new Docente(a.docente);
-		this.verbalizzazione = new Verbale(a.getVerbale());
+		try {
+			this.verbalizzazione = new Verbale(a.getVerbale(VerbaleDAO.readIdFromAppello(AppelloDAO.readId(a))));
+		} catch (NullPointerException | SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Appello non valido");
+		}
 		this.prenotazione = new ArrayList<>();
 				
 	}
@@ -198,9 +207,10 @@ public class Appello {
 		return docente;
 	}
 	
-	public void aggiungiStudentePrenotato(Studente s) {
+	public void aggiungiStudentePrenotato(Studente s) throws NullPointerException, SQLException {
 		
 		this.prenotazione.add(s);
+		PrenotazioneDAO.create(s.getMatricola(), AppelloDAO.readId(this));
 		
 	}
 	
@@ -208,6 +218,15 @@ public class Appello {
 	public void mostraListaPrenotati() {
 		
 		System.out.println("LISTA PRENOTATI");
+		
+		try {
+			prenotazione = PrenotazioneDAO.readStudenti(AppelloDAO.readId(this));
+		} catch (NullPointerException | SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Appello non vaido");
+			return;
+		}
 		
 		Iterator<Studente> it = this.prenotazione.iterator();
 		
@@ -218,11 +237,13 @@ public class Appello {
 		
 	}
 	
-	public void creaVerbale() {
+	public void creaVerbale(int id) throws SQLException {
 		verbalizzazione = new Verbale(this);
+		VerbaleDAO.create(id, this);
 	}
 	
-	public Verbale getVerbale() {
+	public Verbale getVerbale(int id) throws SQLException {
+		verbalizzazione = VerbaleDAO.read(id);
 		return verbalizzazione;
 	}
 	

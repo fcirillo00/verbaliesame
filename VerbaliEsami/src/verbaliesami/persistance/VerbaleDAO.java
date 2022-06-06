@@ -67,5 +67,33 @@ public class VerbaleDAO {
 		return v;
 	}
 	
+	public static int readIdFromAppello(int appello) throws SQLException{
+		PreparedStatement prep = null;
+		int id_verbale = 0;
+		
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			
+			prep = conn.prepareStatement("SELECT * FROM VERBALE WHERE appello=?");
+			
+			prep.setInt(1, appello);
+			
+			ResultSet rs = prep.executeQuery();
+			
+			if(rs.next()) {
+				id_verbale = rs.getInt("id");				
+			}
+			
+		} finally {
+			
+			if(prep != null) {
+				prep.close();
+			}
+			
+		}
+		
+		return id_verbale;
+	}
+	
 	
 }
