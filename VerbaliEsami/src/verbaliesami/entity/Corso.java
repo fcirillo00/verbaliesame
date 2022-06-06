@@ -117,6 +117,22 @@ public class Corso {
 		return this.titolarita_docenti;
 	}
 	
+	public void aggiungiDocenteTitolarita(Docente doc, int annoAccademico) {
+		
+		Titolarita titolarita = new Titolarita(doc.getMatricola(), this.getCodice(), annoAccademico);
+		
+		this.titolarita_docenti.add(titolarita);
+		try {
+			TitolaritaDAO.create(this.getCodice(), doc.getMatricola(), annoAccademico);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.println("Impossibile aggiungere titolarita'");
+		}
+		
+	}
+	
+
 	public boolean equals (Corso c) {
 		if (this.cfu == c.cfu && this.codice == c.codice && this.denominazione.equals(c.denominazione) ) {
 			return true;
@@ -124,4 +140,5 @@ public class Corso {
 			return false;
 		}
 	}
+
 }
