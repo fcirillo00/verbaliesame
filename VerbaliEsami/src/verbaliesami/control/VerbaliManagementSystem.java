@@ -376,7 +376,10 @@ public class VerbaliManagementSystem {
 	}
 	
 	public ArrayList<Corso> ricerca_corso_denominazione(String denominazione_corso){
-		ArrayList<Corso> c = null;
+		ArrayList<Corso> c = new ArrayList<Corso>();
+		String pattern = "[a-zA-Z ]*";		
+
+		if (!denominazione_corso.matches(pattern)) { System.out.println(denominazione_corso+" non e' un nome valido"); return c; }
 		
 		try {
 			c = new ArrayList<Corso>(CorsoDAO.read(denominazione_corso));
@@ -390,7 +393,11 @@ public class VerbaliManagementSystem {
 	}
 	
 	public ArrayList<Corso> ricerca_corso_docente(String matricola_docente){
-		ArrayList<Corso> c = null;
+		
+		ArrayList<Corso> c = new ArrayList<Corso>();
+		String matricola_pattern = "^[a-zA-Z0-9]{9}$";
+		
+		if (!matricola_docente.matches(matricola_pattern)) { System.out.println(matricola_docente+" non e' una matricola valida"); return c; }
 		
 		try {
 			c = new ArrayList<Corso>(CorsoDAO.readFromMatricola(matricola_docente));
@@ -405,7 +412,10 @@ public class VerbaliManagementSystem {
 	}
 	
 	public ArrayList<Corso> ricerca_corso_docente(String nome_docente, String cognome_docente){
-		ArrayList<Corso> c = null;
+		ArrayList<Corso> c = new ArrayList<Corso>();
+		String pattern = "[a-zA-Z ]*";
+
+		if (!nome_docente.matches(pattern) || !cognome_docente.matches(pattern)) {System.out.println(nome_docente+" "+ cognome_docente + " non e' una denominazione valida"); return c; }
 		
 		try {
 			c = new ArrayList<Corso>(CorsoDAO.readFromNomeCognome(nome_docente, cognome_docente));

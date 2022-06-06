@@ -80,6 +80,17 @@ class Test_ricerca_corso {
 	void test_nomeCorso2() {
 		// nome non presente nel DB
 		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
+		ArrayList<Corso> res = vms.ricerca_corso_denominazione("Programmazione");
+		
+		boolean success = res.isEmpty();
+
+		assertEquals(success, true);
+	}
+	
+	@Test
+	void test_nomeCorso3() {
+		// nome invalido
+		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
 		ArrayList<Corso> res = vms.ricerca_corso_denominazione("\'\"#\\* -- ");
 		
 		boolean success = res.isEmpty();
@@ -125,7 +136,7 @@ class Test_ricerca_corso {
 	void test_matricolaDocente4() {
 		// matricola non presente
 		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
-		ArrayList<Corso> res = vms.ricerca_corso_docente("\'\"#\\* -- ");
+		ArrayList<Corso> res = vms.ricerca_corso_docente("A12345678");
 		
 		assertEquals(res.isEmpty(), true);
 	}
@@ -150,7 +161,7 @@ class Test_ricerca_corso {
 	void test_nomeCognomeDocente2() {
 		// nome valido, cognome non presente
 		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
-		ArrayList<Corso> res = vms.ricerca_corso_docente("Simon Pietro" , "\'\"#\\* -- ");
+		ArrayList<Corso> res = vms.ricerca_corso_docente("Simon Pietro" , "Giggio");
 		
 		assertEquals(res.isEmpty(), true);
 	}
@@ -159,7 +170,7 @@ class Test_ricerca_corso {
 	void test_nomeCognomeDocente3() {
 		// nome non presente, cognome valido
 		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
-		ArrayList<Corso> res = vms.ricerca_corso_docente("\'\"#\\* -- ", "Romano");
+		ArrayList<Corso> res = vms.ricerca_corso_docente("Gianluigi", "Romano");
 		
 		assertEquals(res.isEmpty(), true);
 	}
@@ -169,6 +180,24 @@ class Test_ricerca_corso {
 		// nome valido, cognome presente ma nome e cognome insieme non presenti
 		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
 		ArrayList<Corso> res = vms.ricerca_corso_docente("Simon Pietro", "Pietrantuono");
+		
+		assertEquals(res.isEmpty(), true);
+	}
+	
+	@Test
+	void test_nomeCognomeDocente5() {
+		// nome non valido, cognome valido
+		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
+		ArrayList<Corso> res = vms.ricerca_corso_docente("#394034a 0=-", "Pietrantuono");
+		
+		assertEquals(res.isEmpty(), true);
+	}
+	
+	@Test
+	void test_nomeCognomeDocente6() {
+		// nome valido, cognome non valido
+		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
+		ArrayList<Corso> res = vms.ricerca_corso_docente("Simon Pietro", "#$9834a");
 		
 		assertEquals(res.isEmpty(), true);
 	}
