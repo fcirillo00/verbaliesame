@@ -109,12 +109,14 @@ public class Corso {
 	}
 
 	public ArrayList<Appello> getAppelli() throws SQLException {
-		return AppelloDAO.read(this.getCodice());
+		this.appelli = AppelloDAO.read(this.getCodice());
+		return appelli;
 	}
 
 
 	public ArrayList<Titolarita> getTitolarita_docenti() throws SQLException {
-		return TitolaritaDAO.readFromCorso(this.getCodice());
+		this.titolarita_docenti = TitolaritaDAO.readFromCorso(this.getCodice());
+		return this.titolarita_docenti;
 	}
 	
 	
