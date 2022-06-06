@@ -44,6 +44,9 @@ public class Studente {
 		this.password = s.password;
 		this.pin = s.pin;	
 		
+		appelliPrenotati = new ArrayList<Appello>();
+		valutazioniConseguite = new ArrayList<Valutazione>();
+		
 		try {
 			appelliPrenotati = PrenotazioneDAO.readAppelli(this.getMatricola());
 		} catch (SQLException e) {

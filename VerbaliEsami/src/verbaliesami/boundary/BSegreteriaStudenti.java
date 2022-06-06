@@ -35,6 +35,7 @@ public class BSegreteriaStudenti {
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 		
 		String pattern = "[a-zA-Z]*";
+		String pattern2 = "[' ']";
 		String matricola_pattern = "[a-zA-Z0-9]*";
 		
 		String nome_doc = "";
@@ -54,11 +55,11 @@ public class BSegreteriaStudenti {
 			do {
 				nome_doc = br.readLine();
 				if(!nome_doc.matches(pattern)) {
-					System.out.println("Hai inserito numeri. Riprovare:");
+					System.out.println("Hai inserito valori non validi. Riprovare:");
 				}else if(nome_doc.isBlank()) {
 					System.out.println("Nessun valore inserito");
 				}
-			}while(!nome_doc.matches(pattern) || (nome_doc.isBlank()));
+			}while(((!nome_doc.matches(pattern)) && (!nome_doc.matches(pattern2))) || (nome_doc.isBlank()));
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -73,11 +74,11 @@ public class BSegreteriaStudenti {
 			do {
 				cognome_doc = br.readLine();
 				if(!cognome_doc.matches(pattern)) {
-					System.out.println("Hai inserito numeri. Riprovare:");
+					System.out.println("Hai inserito valori non validi. Riprovare:");
 				}else if(cognome_doc.isBlank()) {
 					System.out.println("Nessun valore inserito");
 				}
-			}while(!cognome_doc.matches(pattern)|| (cognome_doc.isBlank()));
+			}while(((!cognome_doc.matches(pattern)) && (!cognome_doc.matches(pattern2)))|| (cognome_doc.isBlank()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();

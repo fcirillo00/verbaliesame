@@ -30,6 +30,9 @@ public class Corso {
 		this.denominazione = c.getDenominazione();
 		this.cfu = c.getCfu();
 		
+		this.appelli = new ArrayList<Appello>();
+		this.titolarita_docenti = new ArrayList<Titolarita>();
+		
 		try {
 			this.appelli = AppelloDAO.read(this.getCodice());
 		} catch (SQLException e) {

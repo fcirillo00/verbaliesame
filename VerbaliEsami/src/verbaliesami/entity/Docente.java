@@ -42,6 +42,8 @@ public class Docente {
 		this.username = d.username;
 		this.password = d.password;
 	
+		corsi_associati = new ArrayList<Titolarita>();
+		
 		try {
 			
 			this.corsi_associati = TitolaritaDAO.readFromDocente(this.getMatricola());
@@ -51,7 +53,11 @@ public class Docente {
 			//e.printStackTrace();
 			System.out.println("Nessuna titolarita' trovata");
 		}
+		
+		appelli = new ArrayList<Appello>();
 		try {
+			
+			
 			ArrayList<Corso> lista_corsi = this.getCorsiAssociati();
 			
 			Iterator<Corso> it = lista_corsi.iterator();

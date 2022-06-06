@@ -1,3 +1,13 @@
+/*	DOCUMENTAZIONE
+ * 
+ * 	public static void crea_appello()
+ * 
+ * 	DESCRIZIONE: Questa funzione permette di aggiungere un appello nella base di dati
+ * 	PRECONDIZIONI : Deve già esistere un corso e un docente a cui associare l'appello da creare nel DB, non deve essere già esistente un appello con
+ * 					stesso id oppure con stessa (data, matricolaDocente, codiceCorso)
+ * 	POSTCONDIZIONI : Se l'appello non era già esistente nel DB, la funzione crea un nuovo appello e lo aggiunge al DB
+ * */
+
 package verbaliesami.boundary;
 
 import java.io.BufferedReader;
