@@ -80,8 +80,10 @@ public class BStudente {
 					input = br.readLine();
 					if (!input.matches(pattern)) {
 						System.out.println("Inserire un numero.");
+					} else if (Integer.valueOf(input) > 4 || Integer.valueOf(input) < 1) {
+						System.out.println("Inserire un numero compreso tra 1 e 4");
 					}
-				} while (!input.matches(pattern));
+				} while (!input.matches(pattern) || Integer.valueOf(input) > 4 || Integer.valueOf(input) < 1);
 				int choice = Integer.valueOf(input);
 				ArrayList<Corso> corsi = new ArrayList<Corso>();
 				switch(choice) {
