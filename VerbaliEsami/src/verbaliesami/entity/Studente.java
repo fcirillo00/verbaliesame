@@ -44,15 +44,18 @@ public class Studente {
 		this.password = s.password;
 		this.pin = s.pin;	
 		
+		appelliPrenotati = new ArrayList<Appello>();
+		valutazioniConseguite = new ArrayList<Valutazione>();
+		
 		try {
-			appelliPrenotati = new ArrayList<Appello>(PrenotazioneDAO.readAppelli(this.getMatricola()));
+			appelliPrenotati = PrenotazioneDAO.readAppelli(this.getMatricola());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			System.out.println("Nessun appello prenotato trovato");
 		}
 		try {
-			valutazioniConseguite = new ArrayList<Valutazione>(ValutazioneDAO.readValutazioniStudente(this.getMatricola()));
+			valutazioniConseguite = ValutazioneDAO.readValutazioniStudente(this.getMatricola());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();

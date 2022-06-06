@@ -42,8 +42,10 @@ public class Docente {
 		this.username = d.username;
 		this.password = d.password;
 	
+		corsi_associati = new ArrayList<Titolarita>();
+		
 		try {
-			corsi_associati = new ArrayList<Titolarita>();
+			
 			this.corsi_associati = TitolaritaDAO.readFromDocente(this.getMatricola());
 			
 		} catch (SQLException e) {
@@ -51,12 +53,15 @@ public class Docente {
 			//e.printStackTrace();
 			System.out.println("Nessuna titolarita' trovata");
 		}
+		
+		appelli = new ArrayList<Appello>();
 		try {
+			
+			
 			ArrayList<Corso> lista_corsi = this.getCorsiAssociati();
 			
 			Iterator<Corso> it = lista_corsi.iterator();
 			while(it.hasNext()) {
-				appelli = new ArrayList<Appello>();
 				ArrayList<Appello> lista_app = AppelloDAO.read(it.next().getCodice());
 				Iterator<Appello> it_app = lista_app.iterator();
 				while(it_app.hasNext()) {

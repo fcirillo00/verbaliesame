@@ -25,8 +25,9 @@ public class Verbale {
 		
 		this.appello_riferito = new Appello(verbale.getAppello_riferito());
 		this.esaminatore = new Docente(verbale.getEsaminatore());
+		this.esaminato = new ArrayList<Valutazione>();
 		try {
-			this.esaminato = new ArrayList<Valutazione>(ValutazioneDAO.readValutazioni(VerbaleDAO.readIdFromAppello(AppelloDAO.readId(this.appello_riferito))));
+			this.esaminato = ValutazioneDAO.readValutazioni(VerbaleDAO.readIdFromAppello(AppelloDAO.readId(this.appello_riferito)));
 		} catch (NullPointerException | SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();

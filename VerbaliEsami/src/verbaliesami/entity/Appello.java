@@ -84,8 +84,11 @@ public class Appello {
 			//e.printStackTrace();
 			System.out.println("Appello non valido");
 		}
+		
+		this.prenotazione = new ArrayList<Studente>();
+		
 		try {
-			this.prenotazione = new ArrayList<Studente>(PrenotazioneDAO.readStudenti(AppelloDAO.readId(this)));
+			this.prenotazione = PrenotazioneDAO.readStudenti(AppelloDAO.readId(this));
 		} catch (NullPointerException | SQLException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
