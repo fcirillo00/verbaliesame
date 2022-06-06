@@ -8,7 +8,6 @@ import verbaliesami.persistance.TitolaritaDAO;
 
 public class Corso {
 
-	
 	private int codice;
 	private String denominazione;
 	private int cfu;

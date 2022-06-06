@@ -9,8 +9,7 @@
  * DESCRIZIONE: Tale funzione permette di modificare, secondo i campi nome, cognome e matricola, un docente già presente nella base di dati
  * PRECONDIZIONI: nessuna
  * POSTCONDIZIONI: se il docente da modificare era già presente nel DB, esso viene modificato.
- * 
- * 
+ *  
  */
 
 

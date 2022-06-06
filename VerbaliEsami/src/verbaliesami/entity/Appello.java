@@ -16,8 +16,7 @@ import verbaliesami.persistance.VerbaleDAO;
 
 public class Appello {
 	
-	public enum Sede{Aula, Laboratorio, Altro}
-	
+	public enum Sede{Aula, Laboratorio, Altro}	
 	private Calendar data;
 	private Calendar scadenza;
 	private String note;

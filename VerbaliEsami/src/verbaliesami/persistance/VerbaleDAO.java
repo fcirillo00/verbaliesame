@@ -11,6 +11,7 @@ import verbaliesami.entity.Verbale;
 
 public class VerbaleDAO {
 
+	
 	public static void create(int id_verbale, Appello appello_riferito) throws SQLException {
 		
 		PreparedStatement prep = null;

@@ -19,7 +19,6 @@ public class Docente {
 	private ArrayList<Titolarita> corsi_associati;
 	private ArrayList<Appello> appelli;
 	
-	
 	public Docente (String nome, String cognome, String matricola, String username, String password) {
 		
 		this.nome = nome;
