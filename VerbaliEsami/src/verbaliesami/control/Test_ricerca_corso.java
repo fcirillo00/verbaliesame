@@ -53,7 +53,7 @@ class Test_ricerca_corso {
 	
 	@Test
 	void test_codiceCorso2() {
-		// codice invalido
+		// codice non presente
 		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
 		Corso res = vms.ricerca_corso(560);
 		
