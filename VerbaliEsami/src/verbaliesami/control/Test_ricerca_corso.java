@@ -88,7 +88,7 @@ class Test_ricerca_corso {
 	}
 	
 	@Test
-	void test_matricolaDocente() {
+	void test_matricolaDocente1() {
 		// matricola valida
 		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
 		ArrayList<Corso> res = vms.ricerca_corso_docente("A00030004");

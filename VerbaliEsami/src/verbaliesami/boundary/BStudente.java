@@ -1,3 +1,14 @@
+/*	DOCUMENTAZIONE
+ * 
+ * public static void prenota_appello()
+ *  DESCRIZIONE: Tale funzione permette ad uno studente di registrarsi ad un appello.
+ *	PRECONDIZIONI: nessuna
+ *  POSTCONDIZIONI: se non si e' gia' prenotati all'appello, lo studente viene aggiunto alla lista dei prenotati.
+ *  
+ *  
+*/
+
+
 package verbaliesami.boundary;
 
 import verbaliesami.control.VerbaliManagementSystem;
