@@ -39,7 +39,7 @@ class crea_appello_test {
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
 		data.set(2022, 4, 5);
-		scadenza.set(2022, 5, 3);
+		scadenza.set(2022, 3, 3);
 		
 		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
 		id = 5;
@@ -102,8 +102,8 @@ class crea_appello_test {
 		//scadenza valida ma successiva
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 12, 5);
-		scadenza.set(2022, 12, 10);
+		data.set(2022, 11, 5);
+		scadenza.set(2022, 11, 10);
 		
 		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
 		id = 8;
@@ -123,8 +123,8 @@ class crea_appello_test {
 		//codice corso non valido
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 12, 5);
-		scadenza.set(2022, 12, 3);
+		data.set(2022, 11, 5);
+		scadenza.set(2022, 11, 3);
 		
 		a = new Appello(data, scadenza, "Ciao", "Aula", 987654, "A00000001");
 		id = 9;
@@ -144,8 +144,8 @@ class crea_appello_test {
 		//matricola non valida (!= 9 caratteri)
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 12, 5);
-		scadenza.set(2022, 12, 3);
+		data.set(2022, 11, 5);
+		scadenza.set(2022, 11, 3);
 		
 		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001A");
 		id = 10;
@@ -165,8 +165,8 @@ class crea_appello_test {
 		//matricola non valida (non esistente nel db)
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 12, 5);
-		scadenza.set(2022, 12, 3);
+		data.set(2022, 11, 5);
+		scadenza.set(2022, 11, 3);
 		
 		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A0000000B");
 		id = 11;
@@ -186,8 +186,8 @@ class crea_appello_test {
 		//matricola non valida (presenza di caratteri speciali)
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 12, 5);
-		scadenza.set(2022, 12, 3);
+		data.set(2022, 11, 5);
+		scadenza.set(2022, 11, 3);
 		
 		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A!!@aaa");
 		id = 12;
@@ -207,8 +207,8 @@ class crea_appello_test {
 		//id appello non valido perchè minore o uguale a zero
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
-		data.set(2022, 12, 5);
-		scadenza.set(2022, 12, 3);
+		data.set(2022, 11, 5);
+		scadenza.set(2022, 11, 3);
 		
 		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A!!@aaa");
 		id = -1;
@@ -225,7 +225,7 @@ class crea_appello_test {
 	
 	@Test
 	void crea_appello_10(){
-		//scadenza non valida
+		//anno data non valido
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
 		data.set(20222, 6, 5);
@@ -246,7 +246,7 @@ class crea_appello_test {
 	
 	@Test
 	void crea_appello_11(){
-		//scadenza non valida
+		//anno scadenza non valido
 		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
 
 		data.set(2022, 6, 5);
