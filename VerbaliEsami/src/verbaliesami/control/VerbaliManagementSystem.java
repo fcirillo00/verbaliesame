@@ -579,13 +579,6 @@ public class VerbaliManagementSystem {
 	
 	public boolean prenota_appello(Appello a, Studente s) {
 		try {
-			a.aggiungiStudentePrenotato(s);
-		} catch (NullPointerException | SQLException e1) {
-			// TODO Auto-generated catch block
-			//e1.printStackTrace();
-			System.out.println("Appello non valido");
-		}
-		try {
 			PrenotazioneDAO.create(s.getMatricola(), AppelloDAO.readId(a));
 			return true;
 		} catch (SQLException e) {
