@@ -127,7 +127,6 @@ class Test_agg_docente {
 		
 		boolean success = control.agg_docente(new Docente("Giovanni", "Verdi", "B00110000", " ", "1234"));		
 		
-		control.canc_docente("B00110000");
 		assertEquals(false,success);
 	}
 	

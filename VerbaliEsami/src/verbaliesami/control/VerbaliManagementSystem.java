@@ -221,6 +221,8 @@ public class VerbaliManagementSystem {
 			}
 			if(!docente.getMatricola().matches(matricola_pattern) || (docente.getMatricola().length() != 9)) {
 				throw new MatricolaInvalidaException("Matricola non valida per inserimento caratteri non alfanumerici o dimensione diversa da 9.");
+			}if(docente.getUsername().isBlank()) {
+				throw new UsernameVuotoException("Username vuoto.");
 			}
 			
 			
@@ -242,6 +244,10 @@ public class VerbaliManagementSystem {
 			//e.printStackTrace();
 			return false;
 		} catch (MatricolaInvalidaException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return false;
+		} catch (UsernameVuotoException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			return false;
