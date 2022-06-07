@@ -58,7 +58,7 @@ public class BDocente {
 		
 		
 		System.out.println("Creazione appello:");
-		System.out.println("Inserire id appello: ");
+		System.out.println("Inserire id appello (deve essere necessariamente un numero > 0 e max 10 cifre): ");
 		
 		try {
 			do {
@@ -70,7 +70,8 @@ public class BDocente {
 		} catch (IOException e) {
 			System.out.println("Errore di inserimento id");
 		} catch (NumberFormatException n) {
-			System.out.println("Errore di inserimento id");
+			System.out.println("Errore di inserimento id. Termino il programma");
+			return;
 		}
 		
 		
@@ -258,7 +259,7 @@ public class BDocente {
 		}
 		
 		
-		
+		try {
 		System.out.println();
 		System.out.println("I corsi associati a questo docente sono: ");
 		corsi_associati = control.getCorsiAssociati(matricola_docente);	//Arraylist di corsi
@@ -266,6 +267,10 @@ public class BDocente {
 		while (it.hasNext()) {
 			Corso c = it.next();
 			c.mostraCorso();
+		}
+		} catch (NullPointerException e) {
+			System.out.println("Non ci sono corsi associati a questo docente. Termino il programma");
+			return;
 		}
 		
 		System.out.println();
@@ -279,7 +284,7 @@ public class BDocente {
 			System.out.println("Errore inserimento codice");
 		} catch (NumberFormatException n) {
 			System.out.println("Errore di inserimento codice");
-		}
+		} 
 		
 		Calendar dataEsame = new GregorianCalendar();
 		Calendar scadenzaEsame = new GregorianCalendar();
@@ -290,9 +295,16 @@ public class BDocente {
 			scadenzaEsame.setTimeInMillis(dataEsame.getTimeInMillis() - 86400000);
 		}
 		
-		Appello a = new Appello(dataEsame, scadenzaEsame, note, sede, codice_corso, matricola_docente);
-		
+		Appello a = null;
+		try {
+		a = new Appello(dataEsame, scadenzaEsame, note, sede, codice_corso, matricola_docente);
 		a.mostraInfoAppello();
+		} catch (NullPointerException e) {
+			System.out.println("Impossibile creare un appello per un corso inesistente. Termino il programma");
+			return;
+		}
+		
+		
 		System.out.println("Le informazioni inserite sono corrette?");
 		System.out.println("Inserire 'Y' per continuare, 'N' per terminare");
 		try {

@@ -66,11 +66,11 @@ class crea_appello_test {
 		id = 6;
 		
 		boolean success = control.crea_appello(a, id);
-		/*try {
+		try {
 		AppelloDAO.delete(id);
 		} catch (SQLException e) {
 			System.out.println("Eccezione");
-		}*/
+		}
 		
 		assertEquals(false, success);
 	}
@@ -210,7 +210,7 @@ class crea_appello_test {
 		data.set(2022, 11, 5);
 		scadenza.set(2022, 11, 3);
 		
-		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A!!@aaa");
+		a = new Appello(data, scadenza, "Ciao", "Aula", 2, "A00000001");
 		id = -1;
 		
 		boolean success = control.crea_appello(a, id);
