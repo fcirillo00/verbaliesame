@@ -1,4 +1,4 @@
-package verbaliesami.control;
+package verbaliesami.testing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,6 +12,8 @@ import verbaliesami.persistance.CorsoDAO;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import verbaliesami.control.VerbaliManagementSystem;
 import verbaliesami.entity.Appello;
 
 class crea_appello_test {

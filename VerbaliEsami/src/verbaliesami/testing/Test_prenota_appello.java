@@ -1,4 +1,4 @@
-package verbaliesami.control;
+package verbaliesami.testing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import verbaliesami.control.VerbaliManagementSystem;
 import verbaliesami.entity.Appello;
 import verbaliesami.entity.Studente;
 import verbaliesami.persistance.AppelloDAO;

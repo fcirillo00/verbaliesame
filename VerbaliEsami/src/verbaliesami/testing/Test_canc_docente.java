@@ -1,8 +1,10 @@
-package verbaliesami.control;
+package verbaliesami.testing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import verbaliesami.control.VerbaliManagementSystem;
 
 class Test_canc_docente {
 

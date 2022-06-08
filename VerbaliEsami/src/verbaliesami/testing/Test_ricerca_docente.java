@@ -1,4 +1,4 @@
-package verbaliesami.control;
+package verbaliesami.testing;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import verbaliesami.control.VerbaliManagementSystem;
 import verbaliesami.entity.Docente;
 
 class Test_ricerca_docente {
