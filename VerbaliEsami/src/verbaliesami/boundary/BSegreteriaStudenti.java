@@ -58,6 +58,8 @@ public class BSegreteriaStudenti {
 					System.out.println("Hai inserito valori non validi. Riprovare:");
 				}else if(nome_doc.isBlank()) {
 					System.out.println("Nessun valore inserito");
+				}else if(nome_doc.length() > 50) {
+					System.out.println("Nome troppo lungo.");
 				}
 			}while(((!nome_doc.matches(pattern)) && (!nome_doc.matches(pattern2))) || (nome_doc.isBlank()));
 			
@@ -77,6 +79,8 @@ public class BSegreteriaStudenti {
 					System.out.println("Hai inserito valori non validi. Riprovare:");
 				}else if(cognome_doc.isBlank()) {
 					System.out.println("Nessun valore inserito");
+				}else if(cognome_doc.length() > 50) {
+					System.out.println("Cognome troppo lungo.");
 				}
 			}while(((!cognome_doc.matches(pattern)) && (!cognome_doc.matches(pattern2)))|| (cognome_doc.isBlank()));
 		} catch (IOException e) {
@@ -109,10 +113,12 @@ public class BSegreteriaStudenti {
 		System.out.println("INSERIRE USERNAME DOCENTE:");
 		
 		try {
-			while(username_doc.isBlank()) {
+			while(username_doc.isBlank() || (username_doc.length() > 50)) {
 				username_doc = br.readLine();
 				if(username_doc.isBlank()) {
 					System.out.println("Username vuoto");
+				}else if(username_doc.length() < 50) {
+					System.out.println("Username troppo lungo");
 				}
 			}
 		} catch (IOException e) {
@@ -125,7 +131,13 @@ public class BSegreteriaStudenti {
 		System.out.println("INSERIRE PASSWORD DOCENTE:");
 	
 		try {
-			password_doc = br.readLine();
+			while(password_doc.length() > 50) {
+				password_doc = br.readLine();
+				if(password_doc.length()>50) {
+					System.out.println("Password inserita troppo lunga");
+				}
+			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -202,6 +214,8 @@ public class BSegreteriaStudenti {
 						System.out.println("Hai inserito caratteri non validi. Riprovare:");
 					}else if(nome_doc.isBlank()) {
 						System.out.println("Nessun valore inserito");
+					}else if(nome_doc.length()>50){
+						System.out.println("Nome troppo lungo.");
 					}
 					
 				}while(((!nome_doc.matches(pattern)) && (!nome_doc.matches(pattern2))) || (nome_doc.isBlank()));
@@ -222,6 +236,8 @@ public class BSegreteriaStudenti {
 						System.out.println("Hai inserito caratteri non validi. Riprovare:");
 					}else if(cognome_doc.isBlank()) {
 						System.out.println("Nessun valore inserito");
+					}else if(cognome_doc.length()>50){
+						System.out.println("Cognome troppo lungo.");
 					}
 				}while(((!cognome_doc.matches(pattern)) && (!cognome_doc.matches(pattern2))) || (cognome_doc.isBlank()));
 			} catch (IOException e) {
@@ -350,6 +366,8 @@ public class BSegreteriaStudenti {
 						System.out.println("Hai inserito caratteri non validi. Riprovare:");
 					}else if(nome_doc.isBlank()) {
 						System.out.println("Nessun valore inserito");
+					}else if(nome_doc.length()>50){
+						System.out.println("Nome troppo lungo.");
 					}
 					
 				}while(((!nome_doc.matches(pattern)) && (!nome_doc.matches(pattern2))) || (nome_doc.isBlank()));
@@ -398,6 +416,8 @@ public class BSegreteriaStudenti {
 						System.out.println("Hai inserito caratteri non validi. Riprovare:");
 					}else if(cognome_doc.isBlank()) {
 						System.out.println("Nessun valore inserito");
+					}else if(cognome_doc.length()>50){
+						System.out.println("Cognome troppo lungo.");
 					}
 				}while(((!cognome_doc.matches(pattern)) && (!cognome_doc.matches(pattern2))) || (cognome_doc.isBlank()));
 			} catch (IOException e) {

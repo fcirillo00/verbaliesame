@@ -76,6 +76,30 @@ class Test_ricerca_docente {
 		assertEquals(null, success);		
 	}
 	
+	@Test
+	void testRicerca_docenteStringString6() {
+		
+		//nome malformato (>50 caratteri), cognome valido
+
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+		
+		ArrayList<Docente> success = control.ricerca_docente("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "1234");
+		
+		assertEquals(null, success);		
+	}
+	
+	@Test
+	void testRicerca_docenteStringString7() {
+		
+		//nome valido, cognome malformato (>50 caratteri)
+
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+		
+		ArrayList<Docente> success = control.ricerca_docente("Roberto", "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		
+		assertEquals(null, success);		
+	}
+	
 	
 	
 

@@ -125,6 +125,7 @@ import java.util.GregorianCalendar;
 
 import verbaliesami.entity.*;
 import verbaliesami.entity.Appello.Sede;
+import verbaliesami.exceptions.CampoTroppoLungoException;
 import verbaliesami.exceptions.CognomeInvalidoException;
 import verbaliesami.exceptions.DataInvalidaException;
 import verbaliesami.exceptions.DocenteNonPresenteException;
@@ -164,15 +165,24 @@ public class VerbaliManagementSystem {
 			
 			if((!nome_docente.matches(pattern)) || (nome_docente.isBlank())){
 				throw new NomeInvalidoException("Nome non valido");
+			} else if(nome_docente.length()>50){
+				throw new CampoTroppoLungoException("Nome troppo lungo");
 			}
 			if(!cognome_docente.matches(pattern) || (cognome_docente.isBlank())) {
 				throw new CognomeInvalidoException("Cognome non valido");
+			} else if(cognome_docente.length()>50){
+				throw new CampoTroppoLungoException("Cognome troppo lungo");
 			}
 			if(!matricola.matches(matricola_pattern) || (matricola.length() != 9)) {
 				throw new MatricolaInvalidaException("Matricola non valida per inserimento caratteri non alfanumerici o dimensione diversa da 9.");
 			}
 			if(username.isBlank()) {
 				throw new UsernameVuotoException("Username vuoto.");
+			} else if(username.length()>50) {
+				throw new CampoTroppoLungoException("Username troppo lungo");
+			}
+			if(password.length()>50) {
+				throw new CampoTroppoLungoException("Password troppo lunga");
 			}
 			
 			
@@ -201,6 +211,10 @@ public class VerbaliManagementSystem {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			return false;
+		} catch (CampoTroppoLungoException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return false;
 		}
 		
 	}
@@ -215,16 +229,24 @@ public class VerbaliManagementSystem {
 			
 			if((!docente.getNome().matches(pattern) && (!docente.getNome().matches(pattern2))) || (docente.getNome().isBlank())){
 				throw new NomeInvalidoException("Nome non valido");
+			}else if(docente.getNome().length()>50){
+				throw new CampoTroppoLungoException("Nome troppo lungo");
 			}
 			if((!docente.getCognome().matches(pattern)) && (!docente.getCognome().matches(pattern2))|| (docente.getCognome().isBlank())) {
 				throw new CognomeInvalidoException("Cognome non valido");
+			} else if(docente.getCognome().length()>50){
+				throw new CampoTroppoLungoException("Cognome troppo lungo");
 			}
 			if(!docente.getMatricola().matches(matricola_pattern) || (docente.getMatricola().length() != 9)) {
 				throw new MatricolaInvalidaException("Matricola non valida per inserimento caratteri non alfanumerici o dimensione diversa da 9.");
 			}if(docente.getUsername().isBlank()) {
 				throw new UsernameVuotoException("Username vuoto.");
+			} else if(docente.getUsername().length()>50){
+				throw new CampoTroppoLungoException("Username troppo lungo");
 			}
-			
+			if(docente.getPassword().length()>50){
+				throw new CampoTroppoLungoException("Password troppo lunga");
+			}
 			
 			DocenteDAO.create(docente);
 			return true;
@@ -251,6 +273,10 @@ public class VerbaliManagementSystem {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			return false;
+		} catch (CampoTroppoLungoException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return false;
 		}
 		
 	}
@@ -266,9 +292,13 @@ public class VerbaliManagementSystem {
 			
 			if((!nome.matches(pattern) && (!nome.matches(pattern2))) || (nome.isBlank())){
 				throw new NomeInvalidoException("Nome non valido");
+			}else if(nome.length()>50){
+				throw new CampoTroppoLungoException("Nome troppo lungo");
 			}
 			if(!cognome.matches(pattern) && (!nome.matches(pattern2)) || (cognome.isBlank())) {
 				throw new CognomeInvalidoException("Cognome non valido");
+			}else if(cognome.length()>50){
+				throw new CampoTroppoLungoException("Cognome troppo lungo");
 			}
 			if(DocenteDAO.readSafe(nome, cognome) == null) {
 				throw new DocenteNonPresenteException("Nessun Docente trovato con i parametri forniti");
@@ -288,6 +318,10 @@ public class VerbaliManagementSystem {
 			//e.printStackTrace();
 			return null;
 		} catch (DocenteNonPresenteException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			return null;
+		} catch (CampoTroppoLungoException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
 			return null;

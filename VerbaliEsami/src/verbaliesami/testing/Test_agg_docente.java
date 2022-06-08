@@ -144,6 +144,54 @@ class Test_agg_docente {
 		assertEquals(true,success);
 	}
 	
+	@Test
+	void testAgg_docenteDocente12() {
+		
+		//matricola valida, nome malformato(>50 caratteri), cognome valido, username valido, password valida
+		
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+		
+		boolean success = control.agg_docente(new Docente("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "Rossi", "C11001100", "RossiGio", ""));		
+		
+		assertEquals(false,success);
+	}
+	
+	@Test
+	void testAgg_docenteDocente13() {
+		
+		//matricola valida, nome valido, cognome malformato(>50 caratteri), username valido, password valida
+		
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+		
+		boolean success = control.agg_docente(new Docente("Roberto", "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "C11001100", "RossiGio", ""));		
+		
+		assertEquals(false,success);
+	}
+	
+	@Test
+	void testAgg_docenteDocente14() {
+		
+		//matricola valida, nome valido, cognome valido, username malformato(>50 caratteri), password valida
+		
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+		
+		boolean success = control.agg_docente(new Docente("Roberto", "Gazza", "C11001100", "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", ""));		
+		
+		assertEquals(false,success);
+	}
+	
+	@Test
+	void testAgg_docenteDocente15() {
+		
+		//matricola valida, nome valido, cognome valido, username valido, password malformata(>50 caratteri)
+		
+		VerbaliManagementSystem control = VerbaliManagementSystem.getInstance();
+		
+		boolean success = control.agg_docente(new Docente("Roberto", "Gazza", "C11001100", "RGazza", "Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));		
+		
+		assertEquals(false,success);
+	}
+	
 	
 
 }
