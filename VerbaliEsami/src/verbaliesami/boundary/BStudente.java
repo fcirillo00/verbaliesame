@@ -49,7 +49,7 @@ public class BStudente {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		VerbaliManagementSystem vms = VerbaliManagementSystem.getInstance();
 		boolean is_corso_trovato = false;
-		String pattern = "[0-9]*";
+		String pattern = "\\d+";
 		
 		Studente studente_loggato = null;
 		
@@ -76,6 +76,7 @@ public class BStudente {
 
 				System.out.flush();
 				String input;
+				// ripeti finche' non hai un numero tra 1 e 4
 				do {
 					input = br.readLine();
 					if (!input.matches(pattern)) {
@@ -86,7 +87,9 @@ public class BStudente {
 				} while (!input.matches(pattern) || Integer.valueOf(input) > 4 || Integer.valueOf(input) < 1);
 				int choice = Integer.valueOf(input);
 				ArrayList<Corso> corsi = new ArrayList<Corso>();
+				
 				switch(choice) {
+				
 				case 1:
 					System.out.print("Inserisci il nome: ");
 					System.out.flush();
@@ -114,12 +117,13 @@ public class BStudente {
 					System.out.print("Inserisci la matricola del docente: ");
 					System.out.flush();
 					String matricola;
+					String matricola_pattern = "^[a-zA-Z0-9]{9}$";
 					do {
 						matricola = br.readLine();
-						if (matricola.length() != 9) {
-							System.out.println("Matricola deve avere una lunghezza di 9. Riprova.");
+						if (!matricola.matches(matricola_pattern)) {
+							System.out.println("Matricola deve avere una lunghezza di 9 e deve essere alfanumerica. Riprova.");
 						}
-					} while (matricola.length() != 9);
+					} while (!matricola.matches(matricola_pattern));
 					
 					corsi = vms.ricerca_corso_docente(matricola);
 					break;
@@ -150,6 +154,7 @@ public class BStudente {
 					}
 					
 					System.out.print("Hai trovato il corso che desideri? (Y/N): ");
+					System.out.flush();
 					if (functions.yes()) {
 						do {
 							System.out.println("Inserisci il numero del corso: ");
@@ -167,7 +172,8 @@ public class BStudente {
 						is_corso_trovato = true;
 						
 					} else {
-						System.out.println("Ricerca annullata. Vuoi riprovare?");
+						System.out.print("Ricerca annullata. Vuoi riprovare? (Y/N): ");
+						System.out.flush();
 						if (!functions.yes()) {
 							return;
 						}
@@ -198,6 +204,7 @@ public class BStudente {
 					}
 					
 					System.out.print("Hai trovato l'appello che desideri? (Y/N): ");
+					System.out.flush();
 					
 					if (functions.yes()) {
 						String input;
@@ -250,6 +257,7 @@ public class BStudente {
 				} else {
 					System.out.println("Non ci sono appelli per il corso selezionato.");
 					System.out.print("Vuoi selezionare un altro corso? ");
+					System.out.flush();
 					if (!functions.yes()) {
 						completed = true;
 					}
