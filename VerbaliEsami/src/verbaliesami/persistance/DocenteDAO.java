@@ -148,7 +148,7 @@ public class DocenteDAO {
 		ResultSet rs = p.executeQuery();
 		Docente d = null;
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			String m = rs.getString("matricola");
 			String n = rs.getString("nome");
 			String c = rs.getString("cognome");
@@ -178,7 +178,7 @@ public class DocenteDAO {
 		ResultSet rs = p.executeQuery();
 		Docente d = null;
 		
-		if (rs.next()) {
+		while (rs.next()) {
 			String m = rs.getString("matricola");
 			String n = rs.getString("nome");
 			String c = rs.getString("cognome");
